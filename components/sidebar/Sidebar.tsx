@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import * as Icon from '../Icons';
 import { useRouter } from 'next/router';
+import data from '../../data/playlists.json';
 
 export default function Sidebar() {
   return (
@@ -58,12 +59,12 @@ function PrimaryMenu() {
           <Link href="/collection">
             <a
               className={`flex items-center gap-4 group rounded px-4 h-10 font-medium hover:text-white transition-all ${
-                router.pathname === '/collection'
+                router.pathname.includes('/collection')
                   ? 'bg-gray-700 text-white'
                   : 'text-gray-100'
               }`}
             >
-              {router.pathname === '/collection' ? (
+              {router.pathname.includes('collection') ? (
                 <Icon.LibraryFilled />
               ) : (
                 <Icon.Library />
@@ -95,7 +96,7 @@ function SecondaryMenu() {
           <li>
             <Link href="/collection/tracks">
               <a className="flex items-center gap-4 group rounded px-4 h-10 font-medium text-gray-100 hover:text-white transition-all">
-                <div className="flex justify-center items-center h-6 w-6 bg-gradient-to-br opacity-70 from-indigo-900 to-gray-100 text-white group-hover:opacity-100 transition-all">
+                <div className="flex justify-center items-center h-6 w-6 bg-gradient-to-br opacity-70 from-blue-700  to-indigo-400 text-white group-hover:opacity-100 transition-all">
                   <Icon.HeartFilled size={12} view={16} />
                 </div>{' '}
                 Liked Songs
@@ -128,11 +129,11 @@ function PlaylistsMenu() {
         className="flex flex-col h-fit absolute left-0 right-[-7px] overflow-y-auto pb-2"
         style={{ height: 'calc(100vh - 477px)' }}
       >
-        {[...Array(20)].map((_, i) => (
-          <li key={i}>
-            <Link href={`/playlist/${i}`}>
+        {data.playlists.map(playlist => (
+          <li key={playlist.id}>
+            <Link href={`/playlist/${playlist.id}`}>
               <a className="flex items-center justify-between px-4 h-8 text-sm text-gray-100 hover:text-white transition-all">
-                Playlist {i} Name <Icon.Speaker />
+                {playlist.name} <Icon.Speaker />
               </a>
             </Link>
           </li>

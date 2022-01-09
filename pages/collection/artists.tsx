@@ -1,13 +1,13 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import PlaylistCard from '../../components/cards/PlaylistCard';
-import data from '../../data/playlists.json';
+import data from '../../data/artists.json';
+import ArtistCard from '../../components/cards/ArtistCard';
 
-const Genre: NextPage = () => {
+const Artists: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Genre - Spotify Redux</title>
+        <title>Your Artists - Spotify Redux</title>
         <meta name="description" content="A Spotify clone..." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -19,16 +19,11 @@ const Genre: NextPage = () => {
         <div className="p-8">
           <section className="mb-4">
             <div className="flex items-center justify-between mb-5">
-              <h2 className="text-white font-bold text-2xl">Genre</h2>
+              <h2 className="text-white font-bold text-2xl">Artists</h2>
             </div>
             <div className="grid grid-rows-1 grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-6">
-              {data.playlists.map(playlist => (
-                <PlaylistCard
-                  key={playlist.id}
-                  id={playlist.id}
-                  name={playlist.name}
-                  artists={playlist.artists}
-                />
+              {data.artists.map(artist => (
+                <ArtistCard key={artist.id} id={artist.id} name={artist.name} />
               ))}
             </div>
           </section>
@@ -38,4 +33,4 @@ const Genre: NextPage = () => {
   );
 };
 
-export default Genre;
+export default Artists;

@@ -1,0 +1,33 @@
+{
+  "genreId": "artists_asdjflksndlkn",
+  "artists": [
+    {
+      "id": "1",
+      "name": "Artist Name"
+    },
+    {
+      "id": "2",
+      "name": "Artist Name"
+    },
+    {
+      "id": "3",
+      "name": "Artist Name"
+    },
+    {
+      "id": "4",
+      "name": "Artist Name"
+    },
+    {
+      "id": "5",
+      "name": "Artist Name"
+    },
+    {
+      "id": "6",
+      "name": "Artist Name"
+    },
+    {
+      "id": "7",
+      "name": "Artist Name"
+    }
+  ]
+}

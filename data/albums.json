@@ -1,0 +1,225 @@
+{
+  "genreId": "albums_aeijflksdfnk",
+  "albums": [
+    {
+      "id": "1",
+      "name": "Album Name",
+      "artists": [
+        { "id": "1", "name": "Artist A" },
+        { "id": "2", "name": "Artist B" }
+      ],
+      "year": "2014",
+      "totalDuration": "5 hr 45 min",
+      "tracks": [
+        {
+          "id": "1",
+          "name": "Track 1",
+          "artists": [
+            { "name": "Artist B", "id": "2" },
+            { "name": "Artist C", "id": "3" }
+          ],
+          "album": {
+            "id": "1",
+            "name": "Album Name"
+          },
+          "date": "Jan 8, 2022",
+          "duration": "8:41"
+        },
+        {
+          "id": "2",
+          "name": "Track 2",
+          "artists": [
+            { "name": "Artist B", "id": "2" },
+            { "name": "Artist C", "id": "3" }
+          ],
+          "album": {
+            "id": "2",
+            "name": "Album Name"
+          },
+          "date": "Jan 8, 2022",
+          "duration": "8:41"
+        },
+        {
+          "id": "3",
+          "name": "Track 3",
+          "artists": [
+            { "name": "Artist B", "id": "2" },
+            { "name": "Artist C", "id": "3" }
+          ],
+          "album": {
+            "id": "3",
+            "name": "Album Name"
+          },
+          "date": "Jan 8, 2022",
+          "duration": "8:41"
+        },
+        {
+          "id": "4",
+          "name": "Track 4",
+          "artists": [
+            { "name": "Artist B", "id": "2" },
+            { "name": "Artist C", "id": "3" }
+          ],
+          "album": {
+            "id": "4",
+            "name": "Album Name"
+          },
+          "date": "Jan 8, 2022",
+          "duration": "8:41"
+        },
+        {
+          "id": "5",
+          "name": "Track 5",
+          "artists": [
+            { "name": "Artist B", "id": "2" },
+            { "name": "Artist C", "id": "3" }
+          ],
+          "album": {
+            "id": "5",
+            "name": "Album Name"
+          },
+          "date": "Jan 8, 2022",
+          "duration": "8:41"
+        },
+        {
+          "id": "6",
+          "name": "Track 6",
+          "artists": [
+            { "name": "Artist B", "id": "2" },
+            { "name": "Artist C", "id": "3" }
+          ],
+          "album": {
+            "id": "6",
+            "name": "Album Name"
+          },
+          "date": "Jan 8, 2022",
+          "duration": "8:41"
+        },
+        {
+          "id": "7",
+          "name": "Track 7",
+          "artists": [
+            { "name": "Artist B", "id": "2" },
+            { "name": "Artist C", "id": "3" }
+          ],
+          "album": {
+            "id": "7",
+            "name": "Album Name"
+          },
+          "date": "Jan 8, 2022",
+          "duration": "8:41"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Album Name",
+      "artists": [
+        { "id": "1", "name": "Artist A" },
+        { "id": "2", "name": "Artist B" }
+      ],
+      "year": "2014",
+      "totalDuration": "5 hr 45 min",
+      "tracks": [
+        {
+          "id": "1",
+          "name": "Track 1",
+          "artists": [
+            { "name": "Artist B", "id": "2" },
+            { "name": "Artist C", "id": "3" }
+          ],
+          "album": {
+            "id": "1",
+            "name": "Album Name"
+          },
+          "date": "Jan 8, 2022",
+          "duration": "8:41"
+        },
+        {
+          "id": "2",
+          "name": "Track 2",
+          "artists": [
+            { "name": "Artist B", "id": "2" },
+            { "name": "Artist C", "id": "3" }
+          ],
+          "album": {
+            "id": "2",
+            "name": "Album Name"
+          },
+          "date": "Jan 8, 2022",
+          "duration": "8:41"
+        },
+        {
+          "id": "3",
+          "name": "Track 3",
+          "artists": [
+            { "name": "Artist B", "id": "2" },
+            { "name": "Artist C", "id": "3" }
+          ],
+          "album": {
+            "id": "3",
+            "name": "Album Name"
+          },
+          "date": "Jan 8, 2022",
+          "duration": "8:41"
+        },
+        {
+          "id": "4",
+          "name": "Track 4",
+          "artists": [
+            { "name": "Artist B", "id": "2" },
+            { "name": "Artist C", "id": "3" }
+          ],
+          "album": {
+            "id": "4",
+            "name": "Album Name"
+          },
+          "date": "Jan 8, 2022",
+          "duration": "8:41"
+        },
+        {
+          "id": "5",
+          "name": "Track 5",
+          "artists": [
+            { "name": "Artist B", "id": "2" },
+            { "name": "Artist C", "id": "3" }
+          ],
+          "album": {
+            "id": "5",
+            "name": "Album Name"
+          },
+          "date": "Jan 8, 2022",
+          "duration": "8:41"
+        },
+        {
+          "id": "6",
+          "name": "Track 6",
+          "artists": [
+            { "name": "Artist B", "id": "2" },
+            { "name": "Artist C", "id": "3" }
+          ],
+          "album": {
+            "id": "6",
+            "name": "Album Name"
+          },
+          "date": "Jan 8, 2022",
+          "duration": "8:41"
+        },
+        {
+          "id": "7",
+          "name": "Track 7",
+          "artists": [
+            { "name": "Artist B", "id": "2" },
+            { "name": "Artist C", "id": "3" }
+          ],
+          "album": {
+            "id": "7",
+            "name": "Album Name"
+          },
+          "date": "Jan 8, 2022",
+          "duration": "8:41"
+        }
+      ]
+    }
+  ]
+}

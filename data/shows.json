@@ -1,0 +1,64 @@
+{
+  "genreId": "shows_skdljfsdf",
+  "shows": [
+    {
+      "id": "1",
+      "name": "Show 1",
+      "hosts": [
+        { "name": "Host A", "id": "1" },
+        { "name": "Host B", "id": "2" },
+        { "name": "Host C", "id": "3" }
+      ],
+      "episodes": ["Episode 1", "Episode 2"]
+    },
+    {
+      "id": "2",
+      "name": "Show 2",
+      "hosts": [
+        { "name": "Host B", "id": "2" },
+        { "name": "Host C", "id": "3" }
+      ],
+      "episodes": ["Episode 1", "Episode 2"]
+    },
+    {
+      "id": "3",
+      "name": "Show 3",
+      "hosts": [{ "name": "Host A", "id": "1" }],
+      "episodes": ["Episode 1", "Episode 2"]
+    },
+    {
+      "id": "4",
+      "name": "Show 4",
+      "hosts": [
+        { "name": "Host A", "id": "1" },
+        { "name": "Host C", "id": "3" }
+      ],
+      "episodes": ["Episode 1", "Episode 2"]
+    },
+    {
+      "id": "5",
+      "name": "Show 5",
+      "hosts": [
+        { "name": "Host A", "id": "1" },
+        { "name": "Host B", "id": "2" },
+        { "name": "Host C", "id": "3" }
+      ],
+      "episodes": ["Episode 1", "Episode 2"]
+    },
+    {
+      "id": "6",
+      "name": "Show 6",
+      "hosts": [
+        { "name": "Host A", "id": "1" },
+        { "name": "Host B", "id": "2" }
+      ],
+      "episodes": ["Episode 1", "Episode 2"]
+    },
+    {
+      "id": "7",
+      "name": "Show 7",
+      "hosts": [{ "name": "Host C", "id": "3" }],
+      "episodes": ["Episode 1", "Episode 2"]
+    }
+  ]
+}

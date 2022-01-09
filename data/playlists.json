@@ -1,0 +1,57 @@
+{
+  "genreId": "playlists_skdljfsdf",
+  "playlists": [
+    {
+      "id": "1",
+      "name": "Playlist 1",
+      "artists": [
+        { "name": "Artist A", "id": "1" },
+        { "name": "Artist B", "id": "2" },
+        { "name": "Artist C", "id": "3" }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Playlist 2",
+      "artists": [
+        { "name": "Artist B", "id": "2" },
+        { "name": "Artist C", "id": "3" }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Playlist 3",
+      "artists": [{ "name": "Artist A", "id": "1" }]
+    },
+    {
+      "id": "4",
+      "name": "Playlist 4",
+      "artists": [
+        { "name": "Artist A", "id": "1" },
+        { "name": "Artist C", "id": "3" }
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Playlist 5",
+      "artists": [
+        { "name": "Artist A", "id": "1" },
+        { "name": "Artist B", "id": "2" },
+        { "name": "Artist C", "id": "3" }
+      ]
+    },
+    {
+      "id": "6",
+      "name": "Playlist 6",
+      "artists": [
+        { "name": "Artist A", "id": "1" },
+        { "name": "Artist B", "id": "2" }
+      ]
+    },
+    {
+      "id": "7",
+      "name": "Playlist 7",
+      "artists": [{ "name": "Artist C", "id": "3" }]
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
+import Link from 'next/link';
 import Player from '../components/player/Player';
 import Sidebar from '../components/sidebar/Sidebar';
 import * as Icon from '../components/Icons';
@@ -40,6 +41,63 @@ function HeaderBar() {
         >
           <Icon.RightChevron className="text-gray-100 group-hover:text-white transition-all w-6 h-6" />
         </button>
+        {router.pathname.includes('collection') &&
+          !router.pathname.includes('tracks') && (
+            <div className="library__menu">
+              <nav>
+                <ul className="flex">
+                  <li>
+                    <Link href="/collection/playlists">
+                      <a
+                        className={`text-white font-medium rounded-md px-4 py-3 ${handleActiveLink(
+                          router.pathname,
+                          '/collection/playlists'
+                        )}`}
+                      >
+                        Playlists
+                      </a>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/collection/podcasts">
+                      <a
+                        className={`text-white font-medium rounded-md px-4 py-3 ${handleActiveLink(
+                          router.pathname,
+                          '/collection/podcasts'
+                        )}`}
+                      >
+                        Podcasts
+                      </a>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/collection/artists">
+                      <a
+                        className={`text-white font-medium rounded-md px-4 py-3 ${handleActiveLink(
+                          router.pathname,
+                          '/collection/artists'
+                        )}`}
+                      >
+                        Artists
+                      </a>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/collection/albums">
+                      <a
+                        className={`text-white font-medium rounded-md px-4 py-3 ${handleActiveLink(
+                          router.pathname,
+                          '/collection/albums'
+                        )}`}
+                      >
+                        Albums
+                      </a>
+                    </Link>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          )}
       </div>
       <div className="flex gap-2 items-center rounded-full p-[2px] bg-gray-800 text-white font-medium">
         <figure className="flex justify-center items-center bg-gray-400 rounded-full h-7 w-7">
@@ -52,4 +110,10 @@ function HeaderBar() {
       </div>
     </div>
   );
+}
+
+function handleActiveLink(pathname: string, path: string) {
+  if (pathname === path) {
+    return 'bg-gray-500';
+  }
 }

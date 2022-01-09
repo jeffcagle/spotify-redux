@@ -1,70 +1,9 @@
 import React, { useState } from 'react';
-import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
 import Head from 'next/head';
 import * as Icon from '../../components/Icons';
 import Link from 'next/link';
-
-const likedTracks = {
-  tracks: [
-    {
-      trackId: 'akjlksdjf',
-      trackName: 'Playlist 1',
-      artists: ['Artist A', 'Artist B', 'Artist C', 'Artist D'],
-      albumName: 'Album A',
-      dateAdded: 'Jan 1, 2022',
-      duration: '8:00',
-    },
-    {
-      trackId: 'skdjflsds',
-      trackName: 'Playlist 2',
-      artists: ['Artist A', 'Artist B', 'Artist C'],
-      albumName: 'Album A',
-      dateAdded: 'Jan 1, 2022',
-      duration: '8:00',
-    },
-    {
-      trackId: '9jkwdfjje',
-      trackName: 'Playlist 3',
-      artists: ['Artist A', 'Artist D'],
-      albumName: 'Album A',
-      dateAdded: 'Jan 1, 2022',
-      duration: '8:00',
-    },
-    {
-      trackId: 'jser3jjhfd',
-      trackName: 'Playlist 4',
-      artists: ['Artist A', 'Artist B', 'Artist C', 'Artist D'],
-      albumName: 'Album A',
-      dateAdded: 'Jan 1, 2022',
-      duration: '8:00',
-    },
-    {
-      trackId: 'urndnsdfh',
-      trackName: 'Playlist 5',
-      artists: ['Artist A', 'Artist B', 'Artist C'],
-      albumName: 'Album A',
-      dateAdded: 'Jan 1, 2022',
-      duration: '8:00',
-    },
-    {
-      trackId: '83hjksfkjh',
-      trackName: 'Playlist 6',
-      artists: ['Artist B', 'Artist C', 'Artist D'],
-      albumName: 'Album A',
-      dateAdded: 'Jan 1, 2022',
-      duration: '8:00',
-    },
-    {
-      trackId: '39enfbnsfi',
-      trackName: 'Playlist 7',
-      artists: ['Artist A', 'Artist B', 'Artist C', 'Artist D'],
-      albumName: 'Album A',
-      dateAdded: 'Jan 1, 2022',
-      duration: '8:00',
-    },
-  ],
-};
+import insertCommas from '../../utils/insertCommas';
+import data from '../../data/playlist.json';
 
 function Tracks() {
   return (
@@ -80,14 +19,14 @@ function Tracks() {
         style={{ height: 'calc(100vh - 161px)' }}
         className="overflow-y-auto"
       >
-        <PlaylistHeader data={likedTracks} />
+        <PlaylistHeader />
         <div className="relative w-full">
           <div className="absolute z-0 w-full h-60 bg-gray-600 bg-gradient-to-b from-[rgba(0,0,0,.6)] to-gray-800">
             {/* Bg Gradient */}
           </div>
           <div className="p-8 relative z-10">
             <PlaylistControls />
-            <TrackTable data={likedTracks} />
+            <TrackTable />
           </div>
         </div>
       </div>
@@ -97,24 +36,11 @@ function Tracks() {
 
 export default Tracks;
 
-interface PlaylistProps {
-  data: {
-    tracks: {
-      trackId: string;
-      trackName: string;
-      artists: string[];
-      albumName: string;
-      dateAdded: string;
-      duration: string;
-    }[];
-  };
-}
-
-function PlaylistHeader({ data }: PlaylistProps) {
+function PlaylistHeader() {
   return (
-    <div className="p-8 bg-gray-700">
+    <div className="playlist p-8 bg-gray-700">
       <div className="flex gap-6">
-        <div className="w-[232px] h-[232px] bg-gray-600 drop-shadow-[0_4px_60px_rgba(0,0,0,.5)]"></div>
+        <div className="playlist__image w-[232px] h-[232px] bg-gray-600 drop-shadow-[0_4px_60px_rgba(0,0,0,.5)]"></div>
         <div className="flex flex-col justify-end">
           <div>
             <h2 className="text-white uppercase text-xs font-medium">
@@ -122,10 +48,12 @@ function PlaylistHeader({ data }: PlaylistProps) {
             </h2>
           </div>
           <div>
-            <h1 className="text-white font-black text-6xl my-3">Liked Songs</h1>
+            <h1 className="playlist__title text-white font-black text-6xl my-3">
+              Liked Songs
+            </h1>
           </div>
-          <div className="flex text-sm">
-            <span className="text-white font-bold">username</span>
+          <div className="playlist__meta flex text-sm">
+            <span className="text-white font-bold">{data.creator}</span>
             <span className="before:content-['•'] before:mx-1 text-gray-100">
               {data.tracks.length} {data.tracks.length > 1 ? 'songs' : 'song'}
             </span>
@@ -138,13 +66,12 @@ function PlaylistHeader({ data }: PlaylistProps) {
 
 function PlaylistControls() {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
 
   return (
-    <div className="flex items-center mb-8">
+    <div className="controls flex items-center mb-8">
       <button
         onClick={() => setIsPlaying(!isPlaying)}
-        className="bg-brand w-14 h-14 rounded-full flex items-center justify-center mr-8"
+        className="controls__play bg-brand w-14 h-14 rounded-full flex items-center justify-center mr-8"
       >
         {isPlaying ? (
           <Icon.Pause size={28} view={16} className="text-white" />
@@ -156,11 +83,11 @@ function PlaylistControls() {
   );
 }
 
-function TrackTable({ data }: PlaylistProps) {
+function TrackTable() {
   return (
-    <div className="flex flex-col">
+    <div className="tracks flex flex-col">
       {/* Track Table Header */}
-      <div className="px-4 border-b border-gray-600 h-9">
+      <div className="tracks__header px-4 border-b border-gray-600 h-9">
         <div className="grid gap-4 text-gray-100 grid-cols-[16px_6fr_4fr_3fr_minmax(120px,1fr)] h-full uppercase">
           <div className="flex items-center justify-center">#</div>
           <div className="flex items-center justify-self-start">Title</div>
@@ -172,50 +99,40 @@ function TrackTable({ data }: PlaylistProps) {
         </div>
       </div>
       {/* Track Items */}
-      <div className="flex flex-col pt-5">
+      <div className="tracks__list flex flex-col pt-5">
         {data.tracks.map((track, i) => (
           <div
-            className="grid gap-4 text-gray-100 grid-cols-[16px_6fr_4fr_3fr_minmax(120px,1fr)] h-14 px-4 rounded-md group hover:bg-gray-600"
-            key={track.trackId}
+            className="track grid gap-4 text-gray-100 grid-cols-[16px_6fr_4fr_3fr_minmax(120px,1fr)] h-14 px-4 rounded-md group hover:bg-gray-600"
+            key={track.id}
           >
-            <div className="flex items-center justify-center">
+            <div className="track__number flex items-center justify-center">
               <div className="group-hover:hidden">{i + 1}</div>
               <div className="hidden group-hover:flex">
                 <Icon.Play size={16} className="text-white" />
               </div>
             </div>
             <div className="flex items-center justify-self-start">
-              <div className="w-10 h-10 bg-gray-700 mr-4"></div>
+              <div className="track__image w-10 h-10 bg-gray-700 mr-4"></div>
               <div className="flex flex-col">
-                <span className="text-white font-medium cursor-default">
-                  {track.trackName}
+                <span className="track__name text-white font-medium cursor-default">
+                  {track.name}
                 </span>
                 <span className="text-xs">
-                  <Link href="/">
-                    <a className="hover:underline hover:text-white">
-                      {track.artists.map((artist, i) => {
-                        if (i < track.artists.length - 1) {
-                          return <span key={artist}>{artist}, </span>;
-                        } else {
-                          return <span key={artist}>{artist}</span>;
-                        }
-                      })}
-                    </a>
-                  </Link>
+                  {insertCommas(track.artists, 'artist')}
                 </span>
               </div>
             </div>
             <div className="flex items-center justify-self-start">
-              <Link href="/">
-                <a className="hover:underline hover:text-white">
-                  {track.albumName}
+              <Link href={`/album/${track.album.id}`}>
+                <a className="track__album hover:underline hover:text-white">
+                  {track.album.name}
                 </a>
               </Link>
             </div>
-            <div className="flex items-center justify-self-start cursor-default">
-              {track.dateAdded}
+            <div className="track__date flex items-center justify-self-start cursor-default">
+              {track.date}
             </div>
-            <div className="flex items-center justify-self-end cursor-default">
+            <div className="track__duration flex items-center justify-self-end cursor-default">
               {track.duration}
             </div>
           </div>
