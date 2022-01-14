@@ -78,15 +78,9 @@ function ArtistControls() {
       </button>
       <button
         onClick={() => setIsFollowed(!isFollowed)}
-        className="controls__follow mr-8"
+        className="controls__follow mr-8 uppercase text-white font-medium text-xs tracking-widest border border-gray-300 py-2 px-4 rounded hover:border-white"
       >
-        {isFollowed ? (
-          'Following'
-        ) : (
-          <div className="uppercase text-white font-medium text-xs tracking-widest border border-gray-300 py-2 px-4 rounded hover:border-white">
-            Follow
-          </div>
-        )}
+        {isFollowed ? 'Following' : 'Follow'}
       </button>
       <button className="controls__menu">
         <Icon.MenuDots className="text-gray-100" />

@@ -47,9 +47,9 @@ function PrimaryMenu() {
               }`}
             >
               {router.pathname === '/search' ? (
-                <Icon.SearchFilled />
+                <Icon.SearchFilled size={24} />
               ) : (
-                <Icon.Search />
+                <Icon.Search size={24} />
               )}
               Search
             </a>
@@ -84,7 +84,7 @@ function SecondaryMenu() {
       <div className="mt-6">
         <ul>
           <li>
-            <Link href="/">
+            <Link href="/playlist/1">
               <a className="flex items-center gap-4 group rounded px-4 h-10 font-medium text-gray-100 hover:text-white transition-all">
                 <div className="flex justify-center items-center h-6 w-6 bg-white opacity-70 text-gray-900 group-hover:opacity-100 transition-all">
                   <Icon.CreatePlaylist />
@@ -103,7 +103,7 @@ function SecondaryMenu() {
               </a>
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link href="/">
               <a className="flex items-center gap-4 group rounded px-4 h-10 font-medium text-gray-100 hover:text-white transition-all">
                 <div className="flex justify-center items-center h-6 w-6 bg-green-800 rounded opacity-70 group-hover:opacity-100 transition-all">
@@ -112,7 +112,7 @@ function SecondaryMenu() {
                 Your Episodes
               </a>
             </Link>
-          </li>
+          </li> */}
         </ul>
       </div>
       <div className="px-4 mt-2 mb-4">

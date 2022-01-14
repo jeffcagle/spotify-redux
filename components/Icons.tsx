@@ -134,12 +134,12 @@ export function HomeFilled(props: SvgProps) {
   );
 }
 
-export function Search(props: SvgProps) {
+export function Search(props: IconProps) {
   return (
     <svg
-      height={24}
-      width={24}
-      viewBox="0 0 24 24"
+      height={props.size}
+      width={props.size}
+      viewBox={`0 0 ${props.view || props.size} ${props.view || props.size}`}
       fill="currentColor"
       {...props}
     >
@@ -148,12 +148,12 @@ export function Search(props: SvgProps) {
   );
 }
 
-export function SearchFilled(props: SvgProps) {
+export function SearchFilled(props: IconProps) {
   return (
     <svg
-      height={24}
-      width={24}
-      viewBox="0 0 24 24"
+      height={props.size}
+      width={props.size}
+      viewBox={`0 0 ${props.view || props.size} ${props.view || props.size}`}
       fill="currentColor"
       {...props}
     >
@@ -404,6 +404,49 @@ export function Verified(props: SvgProps) {
         d="M16.864 7.412l-6.644 7.779-2.804-3.285-.494.578 3.298 3.862 7.214-8.447-.57-.487z"
         fill="#fff"
       />
+    </svg>
+  );
+}
+
+export function AddEpisode(props: IconProps) {
+  return (
+    <svg
+      height={props.size}
+      width={props.size}
+      viewBox={`0 0 ${props.view || props.size} ${props.view || props.size}`}
+      fill="currentColor"
+      {...props}
+    >
+      <path d="M15.5 0C6.94 0 0 6.939 0 15.5 0 24.06 6.94 31 15.5 31S31 24.06 31 15.5C31 6.939 24.06 0 15.5 0zm0 30C7.505 30 1 23.495 1 15.5S7.505 1 15.5 1 30 7.505 30 15.5 23.495 30 15.5 30zm.501-22.999h-1v8h-8v1h8v8h1v-8h8v-1h-8v-8z" />
+    </svg>
+  );
+}
+
+export function AddedEpisode(props: IconProps) {
+  return (
+    <svg
+      height={props.size}
+      width={props.size}
+      viewBox={`0 0 ${props.view || props.size} ${props.view || props.size}`}
+      fill="currentColor"
+      {...props}
+    >
+      <path d="M16 1C7.715 1 1 7.715 1 16s6.715 15 15 15 15-6.715 15-15S24.285 1 16 1zm-2.504 23.481l-6.035-7.062 1.512-1.777 4.523 5.285 9.473-11.1 1.754 1.5-11.227 13.154z" />
+      <path fill="none" d="M0 0h32v32H0z" />
+    </svg>
+  );
+}
+
+export function Close(props: IconProps) {
+  return (
+    <svg
+      height={props.size}
+      width={props.size}
+      viewBox={`0 0 ${props.view || props.size} ${props.view || props.size}`}
+      fill="currentColor"
+      {...props}
+    >
+      <path d="M20.354 4.353l-.708-.706L12 11.293 4.353 3.647l-.706.706L11.293 12l-7.646 7.646.706.708L12 12.707l7.646 7.647.708-.708L12.707 12z" />
     </svg>
   );
 }
