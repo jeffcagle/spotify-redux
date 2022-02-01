@@ -6,6 +6,9 @@ import {
   selectUserEpisodes,
   selectUserPlaylists,
   selectUserTracks,
+  selectUserAlbums,
+  selectUserArtists,
+  selectUserShows,
 } from '../../store/user';
 import { useSelector, useDispatch } from 'react-redux';
 import { setPlaylistId } from '../../store/page';
@@ -26,6 +29,12 @@ export default function Sidebar() {
 
 function PrimaryMenu() {
   let router = useRouter();
+  const playlistCount = useSelector(selectUserPlaylists).total,
+    showCount = useSelector(selectUserShows).total,
+    artistCount = useSelector(selectUserArtists).total,
+    albumCount = useSelector(selectUserAlbums).total,
+    hasLibrary =
+      playlistCount > 0 || showCount > 0 || artistCount > 0 || albumCount > 0;
 
   return (
     <div className="mt-7">
@@ -62,24 +71,26 @@ function PrimaryMenu() {
             </a>
           </Link>
         </li>
-        <li>
-          <Link href="/collection/playlists">
-            <a
-              className={`flex items-center gap-4 group rounded px-4 h-10 font-medium hover:text-white transition-all ${
-                router.pathname.includes('/collection')
-                  ? 'bg-gray-700 text-white'
-                  : 'text-gray-100'
-              }`}
-            >
-              {router.pathname.includes('collection') ? (
-                <Icon.LibraryFilled />
-              ) : (
-                <Icon.Library />
-              )}
-              Your Library
-            </a>
-          </Link>
-        </li>
+        {hasLibrary && (
+          <li>
+            <Link href="/collection/playlists">
+              <a
+                className={`flex items-center gap-4 group rounded px-4 h-10 font-medium hover:text-white transition-all ${
+                  router.pathname.includes('/collection')
+                    ? 'bg-gray-700 text-white'
+                    : 'text-gray-100'
+                }`}
+              >
+                {router.pathname.includes('collection') ? (
+                  <Icon.LibraryFilled />
+                ) : (
+                  <Icon.Library />
+                )}
+                Your Library
+              </a>
+            </Link>
+          </li>
+        )}
       </ul>
     </div>
   );

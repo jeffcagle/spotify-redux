@@ -2,7 +2,13 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
-import { selectUsername } from '../store/user';
+import {
+  selectUserAlbums,
+  selectUserArtists,
+  selectUsername,
+  selectUserPlaylists,
+  selectUserShows,
+} from '../store/user';
 import Player from './player/Player';
 import Sidebar from './sidebar/Sidebar';
 import * as Icon from './Icons';
@@ -34,8 +40,8 @@ export default function Layout({ children }: LayoutProps) {
 }
 
 function HeaderBar() {
-  const router = useRouter();
-  const username = useSelector(selectUsername);
+  const router = useRouter(),
+    username = useSelector(selectUsername);
 
   return (
     <header className="flex justify-between items-center bg-gray-700 h-16 w-full sticky top-0 px-8 z-30">
@@ -72,61 +78,73 @@ function HeaderBar() {
 }
 
 function LibraryMenu() {
-  const { pathname } = useRouter();
+  const { pathname } = useRouter(),
+    playlistCount = useSelector(selectUserPlaylists).total,
+    showCount = useSelector(selectUserShows).total,
+    artistCount = useSelector(selectUserArtists).total,
+    albumCount = useSelector(selectUserAlbums).total;
 
   return (
     <div className="header__library ml-7">
       <div className="library__menu">
         <nav>
           <ul className="flex">
-            <li>
-              <Link href="/collection/playlists">
-                <a
-                  className={`text-white font-medium rounded-md px-4 py-3 ${handleActiveClass(
-                    pathname,
-                    'playlists'
-                  )}`}
-                >
-                  Playlists
-                </a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/collection/podcasts">
-                <a
-                  className={`text-white font-medium rounded-md px-4 py-3 ${handleActiveClass(
-                    pathname,
-                    'podcasts'
-                  )}`}
-                >
-                  Podcasts
-                </a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/collection/artists">
-                <a
-                  className={`text-white font-medium rounded-md px-4 py-3 ${handleActiveClass(
-                    pathname,
-                    'artists'
-                  )}`}
-                >
-                  Artists
-                </a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/collection/albums">
-                <a
-                  className={`text-white font-medium rounded-md px-4 py-3 ${handleActiveClass(
-                    pathname,
-                    'albums'
-                  )}`}
-                >
-                  Albums
-                </a>
-              </Link>
-            </li>
+            {playlistCount > 0 && (
+              <li>
+                <Link href="/collection/playlists">
+                  <a
+                    className={`text-white font-medium rounded-md px-4 py-3 ${handleActiveClass(
+                      pathname,
+                      'playlists'
+                    )}`}
+                  >
+                    Playlists
+                  </a>
+                </Link>
+              </li>
+            )}
+            {showCount > 0 && (
+              <li>
+                <Link href="/collection/podcasts">
+                  <a
+                    className={`text-white font-medium rounded-md px-4 py-3 ${handleActiveClass(
+                      pathname,
+                      'podcasts'
+                    )}`}
+                  >
+                    Podcasts
+                  </a>
+                </Link>
+              </li>
+            )}
+            {artistCount > 0 && (
+              <li>
+                <Link href="/collection/artists">
+                  <a
+                    className={`text-white font-medium rounded-md px-4 py-3 ${handleActiveClass(
+                      pathname,
+                      'artists'
+                    )}`}
+                  >
+                    Artists
+                  </a>
+                </Link>
+              </li>
+            )}
+            {albumCount > 0 && (
+              <li>
+                <Link href="/collection/albums">
+                  <a
+                    className={`text-white font-medium rounded-md px-4 py-3 ${handleActiveClass(
+                      pathname,
+                      'albums'
+                    )}`}
+                  >
+                    Albums
+                  </a>
+                </Link>
+              </li>
+            )}
           </ul>
         </nav>
       </div>
