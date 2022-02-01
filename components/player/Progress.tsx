@@ -3,8 +3,8 @@ import { selectDuration, selectProgress } from '../../store/playback';
 import { convertMs } from '../../utils/maths';
 
 function Progress() {
-  const progress = useSelector(selectProgress);
-  const duration = useSelector(selectDuration);
+  const progress = useSelector(selectProgress),
+    duration = useSelector(selectDuration);
 
   return (
     <div className="flex mt-3">

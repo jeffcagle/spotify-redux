@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAlbumId } from '../../store/page';
 import ListArtists from '../ListArtists';
@@ -32,20 +33,19 @@ interface Props {
 }
 
 function Track(props: Props) {
-  const token = useSelector(selectToken);
-  const isPlaying = useSelector(selectIsPlaying);
-  const playingTrackId = useSelector(selectTrackId);
-  const { data, index, contextId } = props;
-  const id = data.id;
-  const name = data.name;
-  const image = data.album.images[1].url;
-  const artists = data.artists;
-  const albumId = data.album.id;
-  const albumName = data.album.name;
-  const albumRelease = data.album.release_date;
-  const trackDuration = data.duration_ms;
-
-  const dispatch = useDispatch();
+  const token = useSelector(selectToken),
+    isPlaying = useSelector(selectIsPlaying),
+    playingTrackId = useSelector(selectTrackId),
+    { data, index, contextId } = props,
+    id = data.id,
+    name = data.name,
+    image = data.album.images[1].url,
+    artists = data.artists,
+    albumId = data.album.id,
+    albumName = data.album.name,
+    albumRelease = data.album.release_date,
+    trackDuration = data.duration_ms,
+    dispatch = useDispatch();
 
   return (
     <div className="track grid gap-4 text-gray-100 grid-cols-[16px_6fr_4fr_3fr_minmax(120px,1fr)] h-14 px-4 rounded-md group hover:bg-gray-600">
@@ -64,7 +64,13 @@ function Track(props: Props) {
         {playingTrackId === id && isPlaying && (
           <>
             <div className="group-hover:hidden">
-              <img src="https://open.scdn.co/cdn/images/equaliser-animated-green.f93a2ef4.gif" />
+              <Image
+                className="object-cover h-full"
+                src="https://open.scdn.co/cdn/images/equaliser-animated-green.f93a2ef4.gif"
+                alt="equalizer"
+                width={16}
+                height={16}
+              />
             </div>
             <div
               onClick={() => handlePauseTrack()}
@@ -77,7 +83,13 @@ function Track(props: Props) {
       </div>
       <div className="flex items-center justify-self-start">
         <div className="track__image w-10 h-10 bg-gray-700 mr-4 flex-shrink-0">
-          <img className="object-cover h-full" src={image} />
+          <Image
+            className="object-cover h-full"
+            src={image}
+            alt={name}
+            width={40}
+            height={40}
+          />
         </div>
         <div className="flex flex-col">
           <span className="track__name text-white font-medium cursor-default line-clamp-1">

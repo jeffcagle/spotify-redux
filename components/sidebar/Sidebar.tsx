@@ -86,10 +86,10 @@ function PrimaryMenu() {
 }
 
 function SecondaryMenu() {
-  const userTracks = useSelector(selectUserTracks);
-  const hasTracks = userTracks.total > 0;
-  const userEpisodes = useSelector(selectUserEpisodes);
-  const hasEpisodes = userEpisodes.total > 0;
+  const userTracks = useSelector(selectUserTracks),
+    hasTracks = userTracks.total > 0,
+    userEpisodes = useSelector(selectUserEpisodes),
+    hasEpisodes = userEpisodes.total > 0;
 
   return (
     <>
@@ -143,11 +143,10 @@ function PlaylistsMenu() {
     id: string;
     name: string;
   }
-  const userPlaylists = useSelector(selectUserPlaylists);
-  const isPlaying = useSelector(selectIsPlaying);
-  const currentContextId = useSelector(selectContextId);
-
-  const dispatch = useDispatch();
+  const userPlaylists = useSelector(selectUserPlaylists),
+    isPlaying = useSelector(selectIsPlaying),
+    currentContextId = useSelector(selectContextId),
+    dispatch = useDispatch();
 
   return (
     <div className="h-fit pb-40 relative">

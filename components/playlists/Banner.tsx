@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { addDurations, convertMs } from '../../utils/maths';
 
 interface Props {
@@ -12,19 +13,25 @@ interface Props {
 }
 
 function Banner(props: Props) {
-  const { data } = props;
-  const name = data.name;
-  const image = data.images[0].url;
-  const owner = data.owner.display_name;
-  const followers = data.followers.total;
-  const tracks = data.tracks.items;
-  const duration = convertMs(addDurations(tracks));
+  const { data } = props,
+    name = data.name,
+    image = data.images[0].url,
+    owner = data.owner.display_name,
+    followers = data.followers.total,
+    tracks = data.tracks.items,
+    duration = convertMs(addDurations(tracks));
 
   return (
     <div className="playlist p-8 bg-gray-700">
       <div className="flex gap-6">
         <div className="playlist__image w-[232px] h-[232px] bg-gray-600 drop-shadow-[0_4px_60px_rgba(0,0,0,.5)] flex-shrink-0">
-          <img className="object-cover h-full" src={image} />
+          <Image
+            className="object-cover h-full"
+            src={image}
+            alt={name}
+            width={232}
+            height={232}
+          />
         </div>
         <div className="flex flex-col justify-end">
           <h2 className="text-white uppercase text-xs font-medium">Playlist</h2>

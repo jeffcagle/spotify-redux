@@ -3,8 +3,8 @@ import { selectUsername, selectUserTracks } from '../../store/user';
 import * as Icon from '../Icons';
 
 function Banner() {
-  const owner = useSelector(selectUsername);
-  const tracks = useSelector(selectUserTracks);
+  const owner = useSelector(selectUsername),
+    tracks = useSelector(selectUserTracks);
 
   return (
     <div className="playlist p-8 bg-gray-700">

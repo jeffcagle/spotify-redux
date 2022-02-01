@@ -25,7 +25,17 @@ function Gateway({ children }: GatewayProps) {
     const hash = getTokenFromUrl();
     window.location.hash = '';
     const token = hash.access_token;
-    // localStorage.setItem('token', token);
+
+    async function getUserData(token: string) {
+      const _user = await http.getCurrentUser(token),
+        _userPlaylists = await http.getUserPlaylists(token),
+        _userTracks = await http.getUserTracks(token),
+        _userEpisodes = await http.getUserEpisodes(token);
+      dispatch(setUser(_user));
+      dispatch(setUserPlaylists(_userPlaylists));
+      dispatch(setUserTracks(_userTracks));
+      dispatch(setUserEpisodes(_userEpisodes));
+    }
 
     if (token) {
       dispatch(setToken(token));
@@ -33,19 +43,7 @@ function Gateway({ children }: GatewayProps) {
     }
   }, []);
 
-  async function getUserData(token: string) {
-    const _user = await http.getCurrentUser(token);
-    dispatch(setUser(_user));
-    const _userPlaylists = await http.getUserPlaylists(token);
-    dispatch(setUserPlaylists(_userPlaylists));
-    const _userTracks = await http.getUserTracks(token);
-    dispatch(setUserTracks(_userTracks));
-    const _userEpisodes = await http.getUserEpisodes(token);
-    dispatch(setUserEpisodes(_userEpisodes));
-  }
-
   return <>{token ? <Layout>{children}</Layout> : <Login />}</>;
-  // return <Layout>{children}</Layout>;
 }
 
 export default Gateway;

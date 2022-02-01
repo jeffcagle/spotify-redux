@@ -22,7 +22,7 @@ export default function Player() {
       }
     }
     getPlaybackState();
-  }, []);
+  }, [token]);
 
   return (
     <div className="bg-gray-700 border-t border-t-gray-600 h-24 p-4 flex justify-between items-center text-gray-100 fixed z-20 bottom-0 min-w-full">

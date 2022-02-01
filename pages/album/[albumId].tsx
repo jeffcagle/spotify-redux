@@ -25,18 +25,18 @@ const initialArtistState = {
 };
 
 const Album: NextPage = () => {
-  const token = useSelector(selectToken);
-  const albumId = useSelector(selectAlbumId);
-  const [album, setAlbum] = useState(initialAlbumState);
-  const [artist, setArtist] = useState(initialArtistState);
-  const [loading, setLoading] = useState(true);
+  const token = useSelector(selectToken),
+    albumId = useSelector(selectAlbumId),
+    [album, setAlbum] = useState(initialAlbumState),
+    [artist, setArtist] = useState(initialArtistState),
+    [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchAlbumData() {
       try {
         setLoading(true);
-        const _album = await http.getAlbum(albumId, token);
-        const _artist = await http.getArtist(_album.artists[0].id, token);
+        const _album = await http.getAlbum(albumId, token),
+          _artist = await http.getArtist(_album.artists[0].id, token);
         setAlbum(_album);
         setArtist(_artist);
       } catch (error: any) {

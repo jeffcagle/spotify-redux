@@ -10,8 +10,8 @@ interface Props {
 }
 
 function Table(props: Props) {
-  const { data } = props;
-  const tracks = data;
+  const { data } = props,
+    tracks = data;
 
   return (
     <div className="tracks flex flex-col">

@@ -219,6 +219,14 @@ export async function getEpisode(id, token) {
  * Player controls
  */
 
+export async function getDevices(token) {
+  const response = await fetch(
+    `${urls.baseUrl}me/player/devices`,
+    headers(token)
+  );
+  return await response.json();
+}
+
 export async function playTrack(token) {
   const response = await fetch(`${urls.baseUrl}${urls.play}`, {
     method: 'PUT',

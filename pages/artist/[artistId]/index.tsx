@@ -18,19 +18,19 @@ const initialArtistState = {
 };
 
 const Artist: NextPage = () => {
-  const token = useSelector(selectToken);
-  const artistId = useSelector(selectArtistId);
-  const [artist, setArtist] = useState(initialArtistState);
-  const [topTracks, setTopTracks] = useState([]);
-  const [albums, setAlbums] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const token = useSelector(selectToken),
+    artistId = useSelector(selectArtistId),
+    [artist, setArtist] = useState(initialArtistState),
+    [topTracks, setTopTracks] = useState([]),
+    [albums, setAlbums] = useState([]),
+    [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchArtistData() {
       try {
         setLoading(true);
-        const _artist = await http.getArtist(artistId, token);
-        const _topTracks = await http.getArtistTopTracks(artistId, token);
+        const _artist = await http.getArtist(artistId, token),
+          _topTracks = await http.getArtistTopTracks(artistId, token);
         let _albums = await http.getArtistAlbums(artistId, token);
         _albums = removeDuplicates(_albums.items);
         setArtist(_artist);
@@ -70,8 +70,8 @@ const Artist: NextPage = () => {
   );
 
   function removeDuplicates(items: { name: string }[]) {
-    const albums = [];
-    const albumTitles = [''];
+    const albums = [],
+      albumTitles = [''];
     for (const item of items) {
       if (!albumTitles.includes(item.name.toLowerCase())) {
         albumTitles.push(item.name.toLowerCase());

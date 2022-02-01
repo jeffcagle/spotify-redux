@@ -14,12 +14,11 @@ import {
 import Progress from './Progress';
 
 function Controls() {
-  const token = useSelector(selectToken);
-  const isPlaying = useSelector(selectIsPlaying);
-  const repeatStatus = useSelector(selectRepeat);
-  const shuffleStatus = useSelector(selectShuffle);
-
-  const dispatch = useDispatch();
+  const token = useSelector(selectToken),
+    isPlaying = useSelector(selectIsPlaying),
+    repeatStatus = useSelector(selectRepeat),
+    shuffleStatus = useSelector(selectShuffle),
+    dispatch = useDispatch();
 
   return (
     <div className="w-2/4 flex flex-col items-center justify-center">

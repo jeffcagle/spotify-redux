@@ -7,9 +7,9 @@ interface Props {
 }
 
 function Popular(props: Props) {
-  const [popExpanded, setPopExpanded] = useState(false);
-  const { data } = props;
-  const topTracks = data;
+  const [popExpanded, setPopExpanded] = useState(false),
+    { data } = props,
+    topTracks = data;
 
   return (
     <div className="tracks flex flex-col">

@@ -4,8 +4,6 @@ import Banner from '../../components/saved-tracks/Banner';
 import Body from '../../components/saved-tracks/Body';
 import Controls from '../../components/saved-tracks/Controls';
 import Table from '../../components/saved-tracks/Table';
-import { selectToken, selectUserTracks } from '../../store/user';
-import { useSelector } from 'react-redux';
 
 function SavedTracks() {
   return (

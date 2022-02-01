@@ -24,9 +24,8 @@ interface TrackProps {
 }
 
 const Playlists: NextPage = () => {
-  const token = useSelector(selectToken);
-  const userPlaylists: PlaylistProps[] = useSelector(selectUserPlaylists).items;
-  const userTracks: TrackProps = useSelector(selectUserTracks);
+  const userPlaylists: PlaylistProps[] = useSelector(selectUserPlaylists).items,
+    userTracks: TrackProps = useSelector(selectUserTracks);
 
   return (
     <>

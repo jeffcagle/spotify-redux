@@ -7,30 +7,29 @@ import * as http from '../services/fetchService';
 import TracksRow from '../components/genre-rows/TracksRow';
 import ShowsRow from '../components/genre-rows/ShowsRow';
 import PlaylistsRow from '../components/genre-rows/PlaylistsRow';
-import WithAuth from '../components/WithAuth';
 
 const Home: NextPage = () => {
-  const token = useSelector(selectToken);
-  const [loading, setIsLoading] = useState(true);
-  const [recentTracks, setRecentTracks] = useState([]);
-  const [userShows, setUserShows] = useState([]);
-  const [rockPlaylists, setRockPlaylists] = useState([]);
-  const [countryPlaylists, setCountryPlaylists] = useState([]);
+  const token = useSelector(selectToken),
+    [loading, setIsLoading] = useState(true),
+    [recentTracks, setRecentTracks] = useState([]),
+    [userShows, setUserShows] = useState([]),
+    [rockPlaylists, setRockPlaylists] = useState([]),
+    [countryPlaylists, setCountryPlaylists] = useState([]);
 
   useEffect(() => {
     async function fetchRowData() {
       let _recentTracks = await http.getUserRecentlyPlayedTracks(token);
-      const _userShows = await http.getUserShows(token);
-      const _rockPlaylists = await http.getCategoryPlaylists(
-        'rock',
-        'playlists',
-        token
-      );
-      const _countryPlaylists = await http.getCategoryPlaylists(
-        'country',
-        'playlists',
-        token
-      );
+      const _userShows = await http.getUserShows(token),
+        _rockPlaylists = await http.getCategoryPlaylists(
+          'rock',
+          'playlists',
+          token
+        ),
+        _countryPlaylists = await http.getCategoryPlaylists(
+          'country',
+          'playlists',
+          token
+        );
 
       _recentTracks = removeDuplicates(_recentTracks.items);
       setRecentTracks(_recentTracks);
@@ -97,5 +96,4 @@ function removeDuplicates(items: { track: { id: string } }[]) {
   return tracks;
 }
 
-// export default WithAuth(Home);
 export default Home;

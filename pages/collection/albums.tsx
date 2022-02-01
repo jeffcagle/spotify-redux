@@ -16,9 +16,9 @@ interface AlbumProps {
 }
 
 const Albums: NextPage = () => {
-  const token = useSelector(selectToken);
-  const [albums, setAlbums] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const token = useSelector(selectToken),
+    [albums, setAlbums] = useState([]),
+    [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchAlbumsData() {

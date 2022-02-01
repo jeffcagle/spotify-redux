@@ -1,6 +1,7 @@
 import React from 'react';
 import * as Icon from '../../components/Icons';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
 import { setEpisodeId } from '../../store/page';
 import { convertMs } from '../../utils/maths';
@@ -41,14 +42,20 @@ function Episode(props: Props) {
   const dispatch = useDispatch();
 
   return (
-    <Link href={`/episode/${id}`}>
+    <Link href={`/episode/${id}`} passHref>
       <div
         onClick={() => dispatch(setEpisodeId(id))}
         className="episode text-gray-100 px-4 rounded-md group hover:bg-gray-600 cursor-pointer"
       >
         <div className="episode__border py-4 flex border-t border-gray-600 group-hover:border-transparent">
           <div className="episode__image flex flex-none items-center justify-center w-28 h-28 rounded bg-gray-500 mr-6 flex-shrink-0">
-            <img className="object-cover h-full" src={image} />
+            <Image
+              className="object-cover h-full"
+              src={image}
+              alt={name}
+              width={112}
+              height={112}
+            />
           </div>
           <div className="episode__content flex-1 overflow-hidden">
             <div className="episode__title text-white text-base font-medium mb-2 hover:underline line-clamp-1">

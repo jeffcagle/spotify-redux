@@ -1,12 +1,9 @@
 import { useState } from 'react';
 import * as Icon from '../Icons';
 
-/**
- * @todo Figure out how to turn popular tracks into a playable playlist
- */
 function Controls() {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isFollowed, setIsFollowed] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false),
+    [isFollowed, setIsFollowed] = useState(false);
 
   return (
     <div className="controls flex items-center mb-8">

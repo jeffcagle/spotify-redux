@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 interface Props {
   data: {
     name: string;
@@ -7,16 +9,22 @@ interface Props {
 }
 
 function Banner(props: Props) {
-  const { data } = props;
-  const image = data.images[0].url;
-  const name = data.name;
-  const followers = data.followers.total;
+  const { data } = props,
+    image = data.images[0].url,
+    name = data.name,
+    followers = data.followers.total;
 
   return (
     <div className="playlist p-8 bg-gray-700">
       <div className="flex gap-6">
         <div className="playlist__image w-[232px] h-[232px] bg-gray-600 drop-shadow-[0_4px_60px_rgba(0,0,0,.5)] flex-shrink-0">
-          <img className="object-cover h-full" src={image} />
+          <Image
+            className="object-cover h-full"
+            src={image}
+            alt={name}
+            width={232}
+            height={232}
+          />
         </div>
         <div className="flex flex-col justify-end">
           <h2 className="text-white uppercase text-xs font-medium">Artist</h2>

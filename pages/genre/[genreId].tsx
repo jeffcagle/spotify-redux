@@ -39,9 +39,9 @@ interface TrackProps {
 }
 
 const Genre: NextPage = () => {
-  const type = useSelector(selectGenreType);
-  const name = useSelector(selectGenreTitle);
-  const items = useSelector(selectGenreItems);
+  const type = useSelector(selectGenreType),
+    name = useSelector(selectGenreTitle),
+    items = useSelector(selectGenreItems);
 
   return (
     <>

@@ -11,10 +11,10 @@ interface Props {
 }
 
 function Description(props: Props) {
-  const { data } = props;
-  const episode = data;
-  const [isExpanded, setIsExpanded] = useState(false);
-  const dispatch = useDispatch();
+  const { data } = props,
+    episode = data,
+    [isExpanded, setIsExpanded] = useState(false),
+    dispatch = useDispatch();
 
   return (
     <div className="about flex flex-col">

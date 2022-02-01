@@ -16,14 +16,13 @@ interface Props {
 }
 
 function Controls(props: Props) {
-  const { data } = props;
-  const id = data;
-  const token = useSelector(selectToken);
-  const currentContextId = useSelector(selectContextId);
-  const isPlaying = useSelector(selectIsPlaying);
-  const [isFavorite, setIsFavorite] = useState(false);
-
-  const dispatch = useDispatch();
+  const { data } = props,
+    id = data,
+    token = useSelector(selectToken),
+    currentContextId = useSelector(selectContextId),
+    isPlaying = useSelector(selectIsPlaying),
+    [isFavorite, setIsFavorite] = useState(false),
+    dispatch = useDispatch();
 
   return (
     <div className="controls flex items-center mb-8">
@@ -65,7 +64,6 @@ function Controls(props: Props) {
       }
     } else {
       try {
-        // dispatch(setContextType('album'));
         await http.playAlbum(token, id);
         dispatch(setContextId(id));
         dispatch(setIsPlaying(true));

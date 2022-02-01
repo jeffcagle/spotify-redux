@@ -24,10 +24,10 @@ interface EpisodeProps {
 }
 
 const Podcasts: NextPage = () => {
-  const token = useSelector(selectToken);
-  const userEpisodes: EpisodeProps = useSelector(selectUserEpisodes);
-  const [userShows, setUserShows] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const token = useSelector(selectToken),
+    userEpisodes: EpisodeProps = useSelector(selectUserEpisodes),
+    [userShows, setUserShows] = useState([]),
+    [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchShowsData() {

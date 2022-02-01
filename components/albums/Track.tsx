@@ -1,4 +1,5 @@
 import ListArtists from '../ListArtists';
+import Image from 'next/image';
 import * as Icon from '../Icons';
 import { convertMs } from '../../utils/maths';
 import { useSelector, useDispatch } from 'react-redux';
@@ -24,16 +25,15 @@ interface Props {
 }
 
 function Track(props: Props) {
-  const token = useSelector(selectToken);
-  const isPlaying = useSelector(selectIsPlaying);
-  const playingTrackId = useSelector(selectTrackId);
-  const { data, index, contextId } = props;
-  const id = data.id;
-  const name = data.name;
-  const artists = data.artists;
-  const trackDuration = data.duration_ms;
-
-  const dispatch = useDispatch();
+  const token = useSelector(selectToken),
+    isPlaying = useSelector(selectIsPlaying),
+    playingTrackId = useSelector(selectTrackId),
+    { data, index, contextId } = props,
+    id = data.id,
+    name = data.name,
+    artists = data.artists,
+    trackDuration = data.duration_ms,
+    dispatch = useDispatch();
 
   return (
     <div className="track grid gap-4 text-gray-100 grid-cols-[16px_4fr_minmax(120px,1fr)] h-14 px-4 rounded-md group hover:bg-gray-600">
@@ -52,7 +52,13 @@ function Track(props: Props) {
         {playingTrackId === id && isPlaying && (
           <>
             <div className="group-hover:hidden">
-              <img src="https://open.scdn.co/cdn/images/equaliser-animated-green.f93a2ef4.gif" />
+              <Image
+                className="object-cover h-full"
+                src="https://open.scdn.co/cdn/images/equaliser-animated-green.f93a2ef4.gif"
+                alt="equalizer"
+                width={16}
+                height={16}
+              />
             </div>
             <div
               onClick={() => handlePauseTrack()}

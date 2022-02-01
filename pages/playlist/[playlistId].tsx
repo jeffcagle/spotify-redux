@@ -21,10 +21,10 @@ const initialPlaylistState = {
 };
 
 const Playlist: NextPage = () => {
-  const token = useSelector(selectToken);
-  const playlistId = useSelector(selectPlaylistId);
-  const [playlist, setPlaylist] = useState(initialPlaylistState);
-  const [loading, setLoading] = useState(true);
+  const token = useSelector(selectToken),
+    playlistId = useSelector(selectPlaylistId),
+    [playlist, setPlaylist] = useState(initialPlaylistState),
+    [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchPlaylistData() {

@@ -10,8 +10,8 @@ interface Props {
 }
 
 function Table(props: Props) {
-  const { data } = props;
-  const episodes = data.episodes.items;
+  const { data } = props,
+    episodes = data.episodes.items;
 
   return (
     <div className="episodes__grid flex gap-4">

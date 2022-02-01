@@ -15,9 +15,9 @@ interface ArtistProps {
 }
 
 const Artists: NextPage = () => {
-  const token = useSelector(selectToken);
-  const [artists, setArtists] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const token = useSelector(selectToken),
+    [artists, setArtists] = useState([]),
+    [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchArtistsData() {

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import * as Icon from '../Icons';
 import { convertMs } from '../../utils/maths';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,18 +26,17 @@ interface Props {
 }
 
 function Track(props: Props) {
-  const token = useSelector(selectToken);
-  const isPlaying = useSelector(selectIsPlaying);
-  const { data, index } = props;
-  const id = data.id;
-  const name = data.name;
-  const albumId = data.album.id;
-  const image = data.album.images[1].url;
-  const albumName = data.album.name;
-  const trackDuration = data.duration_ms;
-  const dispatch = useDispatch();
-
-  const playingTrackId = useSelector(selectTrackId);
+  const token = useSelector(selectToken),
+    isPlaying = useSelector(selectIsPlaying),
+    playingTrackId = useSelector(selectTrackId),
+    { data, index } = props,
+    id = data.id,
+    name = data.name,
+    albumId = data.album.id,
+    image = data.album.images[1].url,
+    albumName = data.album.name,
+    trackDuration = data.duration_ms,
+    dispatch = useDispatch();
 
   return (
     <div className="track grid gap-4 text-gray-100 grid-cols-[16px_4fr_2fr_minmax(120px,1fr)] h-14 px-4 rounded-md group hover:bg-gray-600">
@@ -55,7 +55,13 @@ function Track(props: Props) {
         {playingTrackId === id && isPlaying && (
           <>
             <div className="group-hover:hidden">
-              <img src="https://open.scdn.co/cdn/images/equaliser-animated-green.f93a2ef4.gif" />
+              <Image
+                className="object-cover h-full"
+                src="https://open.scdn.co/cdn/images/equaliser-animated-green.f93a2ef4.gif"
+                alt="equalizer"
+                width={16}
+                height={16}
+              />
             </div>
             <div
               onClick={() => handlePauseTrack()}
@@ -68,7 +74,13 @@ function Track(props: Props) {
       </div>
       <div className="flex items-center justify-self-start">
         <div className="track__image w-10 h-10 bg-gray-700 mr-4 flex-shrink-0">
-          <img className="object-cover h-full" src={image} />
+          <Image
+            className="object-cover h-full"
+            src={image}
+            alt={name}
+            width={40}
+            height={40}
+          />
         </div>
         <div className="track__name">
           <span className="track__name text-white font-medium cursor-default line-clamp-1">

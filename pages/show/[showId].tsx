@@ -20,10 +20,10 @@ const initialShowState = {
 };
 
 const Show: NextPage = () => {
-  const token = useSelector(selectToken);
-  const showId = useSelector(selectShowId);
-  const [show, setShow] = useState(initialShowState);
-  const [loading, setLoading] = useState(true);
+  const token = useSelector(selectToken),
+    showId = useSelector(selectShowId),
+    [show, setShow] = useState(initialShowState),
+    [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchShowData() {

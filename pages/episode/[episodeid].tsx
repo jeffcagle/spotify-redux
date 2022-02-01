@@ -21,10 +21,10 @@ const initialEpisodeState = {
 };
 
 const Episode: NextPage = () => {
-  const token = useSelector(selectToken);
-  const episodeId = useSelector(selectEpisodeId);
-  const [episode, setEpisode] = useState(initialEpisodeState);
-  const [loading, setLoading] = useState(true);
+  const token = useSelector(selectToken),
+    episodeId = useSelector(selectEpisodeId),
+    [episode, setEpisode] = useState(initialEpisodeState),
+    [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchEpisodeData() {

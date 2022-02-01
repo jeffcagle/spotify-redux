@@ -15,13 +15,4 @@ const Library: NextPage = () => {
   );
 };
 
-// export async function getStaticProps() {
-//   return {
-//     redirect: {
-//       destination: '/collection/playlists',
-//       permanent: false,
-//     },
-//   };
-// }
-
 export default Library;

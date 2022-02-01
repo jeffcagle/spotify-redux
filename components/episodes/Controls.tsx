@@ -16,15 +16,12 @@ interface Props {
 }
 
 function Controls(props: Props) {
-  const { contextId, id } = props;
-  const token = useSelector(selectToken);
-  const currentTrackId = useSelector(selectTrackId);
-  console.log('currentTrackId', currentTrackId);
-  console.log('id', id);
-  const isPlaying = useSelector(selectIsPlaying);
-  const [isAdded, setIsAdded] = useState(false);
-
-  const dispatch = useDispatch();
+  const { contextId, id } = props,
+    token = useSelector(selectToken),
+    currentTrackId = useSelector(selectTrackId),
+    isPlaying = useSelector(selectIsPlaying),
+    [isAdded, setIsAdded] = useState(false),
+    dispatch = useDispatch();
 
   return (
     <div className="controls flex items-center mb-8">

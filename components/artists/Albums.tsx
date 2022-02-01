@@ -10,8 +10,8 @@ interface Props {
 }
 
 function Albums(props: Props) {
-  const { data } = props;
-  const albums = data;
+  const { data } = props,
+    albums = data;
 
   return (
     <section className="albums mb-4">
