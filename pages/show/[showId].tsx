@@ -11,6 +11,7 @@ import Controls from '../../components/shows/Controls';
 import Table from '../../components/shows/Table';
 
 const initialShowState = {
+  id: '',
   name: '',
   description: '',
   images: [],
