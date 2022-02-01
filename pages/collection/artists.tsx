@@ -1,7 +1,6 @@
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
-import data from '../../data/artists.json';
 import ArtistCard from '../../components/cards/ArtistCard';
 import * as http from '../../services/fetchService';
 import { selectToken } from '../../store/user';
