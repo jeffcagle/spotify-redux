@@ -1,6 +1,6 @@
 const clientId = 'e84d5cea5c6845eeafe361dc6c02d049';
-const redirectUri = 'http://localhost:3000/';
-// const redirectUri = 'https://spotify-redux-rho.vercel.app/';
+// const redirectUri = 'http://localhost:3000/';
+const redirectUri = 'https://spotify-redux-rho.vercel.app/';
 
 const scope = [
   'user-read-currently-playing',
