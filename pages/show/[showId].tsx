@@ -38,7 +38,7 @@ const Show: NextPage = () => {
       }
     }
     fetchShowData();
-  }, [showId]);
+  }, [showId, token]);
 
   return (
     <>

@@ -63,7 +63,7 @@ function PrimaryMenu() {
           </Link>
         </li>
         <li>
-          <Link href="/collection">
+          <Link href="/collection/playlists">
             <a
               className={`flex items-center gap-4 group rounded px-4 h-10 font-medium hover:text-white transition-all ${
                 router.pathname.includes('/collection')

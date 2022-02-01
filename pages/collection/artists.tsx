@@ -20,8 +20,13 @@ const Artists: NextPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    async function fetchArtistsData() {
+      const { artists } = await http.getUserArtists(token);
+      setArtists(artists.items);
+      setLoading(false);
+    }
     fetchArtistsData();
-  }, []);
+  }, [token]);
 
   return (
     <>
@@ -57,12 +62,6 @@ const Artists: NextPage = () => {
       </div>
     </>
   );
-
-  async function fetchArtistsData() {
-    const { artists } = await http.getUserArtists(token);
-    setArtists(artists.items);
-    setLoading(false);
-  }
 };
 
 export default Artists;

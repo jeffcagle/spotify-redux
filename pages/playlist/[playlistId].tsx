@@ -39,7 +39,7 @@ const Playlist: NextPage = () => {
       }
     }
     fetchPlaylistData();
-  }, [playlistId]);
+  }, [playlistId, token]);
 
   return (
     <>

@@ -39,7 +39,7 @@ const Episode: NextPage = () => {
       }
     }
     fetchEpisodeData();
-  }, [episodeId]);
+  }, [episodeId, token]);
 
   return (
     <>

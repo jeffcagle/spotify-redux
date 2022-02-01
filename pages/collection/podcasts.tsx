@@ -36,7 +36,7 @@ const Podcasts: NextPage = () => {
       setLoading(false);
     }
     fetchShowsData();
-  }, []);
+  }, [token]);
 
   return (
     <>

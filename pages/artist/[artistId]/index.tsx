@@ -44,7 +44,7 @@ const Artist: NextPage = () => {
       }
     }
     fetchArtistData();
-  }, [artistId]);
+  }, [artistId, token]);
 
   return (
     <>

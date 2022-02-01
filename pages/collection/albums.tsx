@@ -21,14 +21,13 @@ const Albums: NextPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    async function fetchAlbumsData() {
+      const _albums = await http.getUserAlbums(token);
+      setAlbums(_albums.items);
+      setLoading(false);
+    }
     fetchAlbumsData();
-  }, []);
-
-  async function fetchAlbumsData() {
-    const _albums = await http.getUserAlbums(token);
-    setAlbums(_albums.items);
-    setLoading(false);
-  }
+  }, [token]);
 
   return (
     <>

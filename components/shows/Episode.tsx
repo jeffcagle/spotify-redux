@@ -32,7 +32,6 @@ function Episode(props: Props) {
   const isPlaying = useSelector(selectIsPlaying);
   const { data, contextId } = props;
   const id = data.id;
-  console.log(id);
   const name = data.name;
   const description = data.description;
   const image = data.images[0].url;

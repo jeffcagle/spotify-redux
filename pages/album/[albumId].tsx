@@ -46,7 +46,7 @@ const Album: NextPage = () => {
       }
     }
     fetchAlbumData();
-  }, [albumId]);
+  }, [albumId, token]);
 
   return (
     <>

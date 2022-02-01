@@ -18,8 +18,29 @@ const Home: NextPage = () => {
   const [countryPlaylists, setCountryPlaylists] = useState([]);
 
   useEffect(() => {
+    async function fetchRowData() {
+      let _recentTracks = await http.getUserRecentlyPlayedTracks(token);
+      const _userShows = await http.getUserShows(token);
+      const _rockPlaylists = await http.getCategoryPlaylists(
+        'rock',
+        'playlists',
+        token
+      );
+      const _countryPlaylists = await http.getCategoryPlaylists(
+        'country',
+        'playlists',
+        token
+      );
+
+      _recentTracks = removeDuplicates(_recentTracks.items);
+      setRecentTracks(_recentTracks);
+      setUserShows(_userShows.items);
+      setRockPlaylists(_rockPlaylists.playlists.items);
+      setCountryPlaylists(_countryPlaylists.playlists.items);
+      setIsLoading(false);
+    }
     fetchRowData();
-  }, []);
+  }, [token]);
 
   return (
     <>
@@ -62,28 +83,6 @@ const Home: NextPage = () => {
       </div>
     </>
   );
-
-  async function fetchRowData() {
-    let _recentTracks = await http.getUserRecentlyPlayedTracks(token);
-    const _userShows = await http.getUserShows(token);
-    const _rockPlaylists = await http.getCategoryPlaylists(
-      'rock',
-      'playlists',
-      token
-    );
-    const _countryPlaylists = await http.getCategoryPlaylists(
-      'country',
-      'playlists',
-      token
-    );
-
-    _recentTracks = removeDuplicates(_recentTracks.items);
-    setRecentTracks(_recentTracks);
-    setUserShows(_userShows.items);
-    setRockPlaylists(_rockPlaylists.playlists.items);
-    setCountryPlaylists(_countryPlaylists.playlists.items);
-    setIsLoading(false);
-  }
 };
 
 function removeDuplicates(items: { track: { id: string } }[]) {
