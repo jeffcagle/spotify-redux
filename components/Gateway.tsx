@@ -8,6 +8,9 @@ import {
   setUserPlaylists,
   setUserTracks,
   setUserEpisodes,
+  setUserShows,
+  setUserArtists,
+  setUserAlbums,
 } from '../store/user';
 import { getTokenFromUrl } from '../services/login';
 import * as http from '../services/fetchService';
@@ -30,18 +33,24 @@ function Gateway({ children }: GatewayProps) {
       const _user = await http.getCurrentUser(token),
         _userPlaylists = await http.getUserPlaylists(token),
         _userTracks = await http.getUserTracks(token),
-        _userEpisodes = await http.getUserEpisodes(token);
+        _userEpisodes = await http.getUserEpisodes(token),
+        _userShows = await http.getUserShows(token),
+        _userArtists = await http.getUserArtists(token),
+        _userAlbums = await http.getUserAlbums(token);
       dispatch(setUser(_user));
       dispatch(setUserPlaylists(_userPlaylists));
       dispatch(setUserTracks(_userTracks));
       dispatch(setUserEpisodes(_userEpisodes));
+      dispatch(setUserShows(_userShows));
+      dispatch(setUserArtists(_userArtists));
+      dispatch(setUserAlbums(_userAlbums));
     }
 
     if (token) {
       dispatch(setToken(token));
       getUserData(token);
     }
-  }, []);
+  }, [dispatch]);
 
   return <>{token ? <Layout>{children}</Layout> : <Login />}</>;
 }
