@@ -8,7 +8,10 @@ export interface UserState {
   token: string;
   playlists: { items: []; total: number };
   tracks: { items: []; total: number };
+  shows: { items: []; total: number };
   episodes: { items: []; total: number };
+  artists: { items: []; total: number };
+  albums: { items: []; total: number };
 }
 
 const initialState: UserState = {
@@ -18,7 +21,10 @@ const initialState: UserState = {
   token: '',
   playlists: { items: [], total: 0 },
   tracks: { items: [], total: 0 },
+  shows: { items: [], total: 0 },
   episodes: { items: [], total: 0 },
+  artists: { items: [], total: 0 },
+  albums: { items: [], total: 0 },
 };
 
 const slice = createSlice({
@@ -34,6 +40,15 @@ const slice = createSlice({
     setUserPlaylists: (user, action) => {
       user.playlists = action.payload;
     },
+    setUserAlbums: (user, action) => {
+      user.albums = action.payload;
+    },
+    setUserArtists: (user, action) => {
+      user.artists = action.payload.artists;
+    },
+    setUserShows: (user, action) => {
+      user.shows = action.payload;
+    },
     setUserTracks: (user, action) => {
       user.tracks = action.payload;
     },
@@ -47,8 +62,11 @@ export const {
   setToken,
   setUser,
   setUserPlaylists,
+  setUserShows,
   setUserTracks,
   setUserEpisodes,
+  setUserArtists,
+  setUserAlbums,
 } = slice.actions;
 
 // Selectors
@@ -57,6 +75,9 @@ export const selectUsername = (state: AppState) =>
 
 export const selectToken = (state: AppState) => state.user.token;
 export const selectUserPlaylists = (state: AppState) => state.user.playlists;
+export const selectUserArtists = (state: AppState) => state.user.artists;
+export const selectUserAlbums = (state: AppState) => state.user.albums;
+export const selectUserShows = (state: AppState) => state.user.shows;
 export const selectUserTracks = (state: AppState) => state.user.tracks;
 export const selectUserEpisodes = (state: AppState) => state.user.episodes;
 
