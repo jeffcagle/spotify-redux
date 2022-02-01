@@ -2,7 +2,14 @@ import React from 'react';
 import Link from 'next/link';
 import * as Icon from '../Icons';
 import { useRouter } from 'next/router';
-import data from '../../data/playlists.json';
+import {
+  selectUserEpisodes,
+  selectUserPlaylists,
+  selectUserTracks,
+} from '../../store/user';
+import { useSelector, useDispatch } from 'react-redux';
+import { setPlaylistId } from '../../store/page';
+import { selectContextId, selectIsPlaying } from '../../store/playback';
 
 export default function Sidebar() {
   return (
@@ -79,12 +86,17 @@ function PrimaryMenu() {
 }
 
 function SecondaryMenu() {
+  const userTracks = useSelector(selectUserTracks);
+  const hasTracks = userTracks.total > 0;
+  const userEpisodes = useSelector(selectUserEpisodes);
+  const hasEpisodes = userEpisodes.total > 0;
+
   return (
     <>
       <div className="mt-6">
         <ul>
           <li>
-            <Link href="/playlist/1">
+            <Link href="/">
               <a className="flex items-center gap-4 group rounded px-4 h-10 font-medium text-gray-100 hover:text-white transition-all">
                 <div className="flex justify-center items-center h-6 w-6 bg-white opacity-70 text-gray-900 group-hover:opacity-100 transition-all">
                   <Icon.CreatePlaylist />
@@ -93,26 +105,30 @@ function SecondaryMenu() {
               </a>
             </Link>
           </li>
-          <li>
-            <Link href="/collection/tracks">
-              <a className="flex items-center gap-4 group rounded px-4 h-10 font-medium text-gray-100 hover:text-white transition-all">
-                <div className="flex justify-center items-center h-6 w-6 bg-gradient-to-br opacity-70 from-blue-700  to-indigo-400 text-white group-hover:opacity-100 transition-all">
-                  <Icon.HeartFilled size={12} view={16} />
-                </div>{' '}
-                Liked Songs
-              </a>
-            </Link>
-          </li>
-          {/* <li>
-            <Link href="/">
-              <a className="flex items-center gap-4 group rounded px-4 h-10 font-medium text-gray-100 hover:text-white transition-all">
-                <div className="flex justify-center items-center h-6 w-6 bg-green-800 rounded opacity-70 group-hover:opacity-100 transition-all">
-                  <Icon.PodcastMenu />
-                </div>{' '}
-                Your Episodes
-              </a>
-            </Link>
-          </li> */}
+          {hasTracks && (
+            <li>
+              <Link href="/collection/tracks">
+                <a className="flex items-center gap-4 group rounded px-4 h-10 font-medium text-gray-100 hover:text-white transition-all">
+                  <div className="flex justify-center items-center h-6 w-6 bg-gradient-to-br opacity-70 from-blue-700  to-indigo-400 text-white group-hover:opacity-100 transition-all">
+                    <Icon.HeartFilled size={12} view={16} />
+                  </div>{' '}
+                  Liked Songs
+                </a>
+              </Link>
+            </li>
+          )}
+          {hasEpisodes && (
+            <li>
+              <Link href="/collection/episodes">
+                <a className="flex items-center gap-4 group rounded px-4 h-10 font-medium text-gray-100 hover:text-white transition-all">
+                  <div className="flex justify-center items-center h-6 w-6 bg-green-800 rounded opacity-70 group-hover:opacity-100 transition-all">
+                    <Icon.PodcastMenu />
+                  </div>{' '}
+                  Your Episodes
+                </a>
+              </Link>
+            </li>
+          )}
         </ul>
       </div>
       <div className="px-4 mt-2 mb-4">
@@ -123,17 +139,33 @@ function SecondaryMenu() {
 }
 
 function PlaylistsMenu() {
+  interface Props {
+    id: string;
+    name: string;
+  }
+  const userPlaylists = useSelector(selectUserPlaylists);
+  const isPlaying = useSelector(selectIsPlaying);
+  const currentContextId = useSelector(selectContextId);
+
+  const dispatch = useDispatch();
+
   return (
     <div className="h-fit pb-40 relative">
       <ul
         className="flex flex-col h-fit absolute left-0 right-[-7px] overflow-y-auto pb-2"
-        style={{ height: 'calc(100vh - 477px)' }}
+        style={{ height: 'calc(100vh - 436px)' }}
       >
-        {data.playlists.map(playlist => (
+        {userPlaylists.items?.map((playlist: Props) => (
           <li key={playlist.id}>
             <Link href={`/playlist/${playlist.id}`}>
-              <a className="flex items-center justify-between px-4 h-8 text-sm text-gray-100 hover:text-white transition-all">
-                {playlist.name} <Icon.Speaker />
+              <a
+                onClick={() => dispatch(setPlaylistId(playlist.id))}
+                className="flex items-center justify-between px-4 h-8 text-sm text-gray-100 hover:text-white transition-all"
+              >
+                {playlist.name}{' '}
+                {isPlaying && playlist.id === currentContextId && (
+                  <Icon.Speaker />
+                )}
               </a>
             </Link>
           </li>

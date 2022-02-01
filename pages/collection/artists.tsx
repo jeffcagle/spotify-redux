@@ -1,9 +1,29 @@
 import type { NextPage } from 'next';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import data from '../../data/artists.json';
 import ArtistCard from '../../components/cards/ArtistCard';
+import * as http from '../../services/fetchService';
+import { selectToken } from '../../store/user';
+import { useSelector } from 'react-redux';
+
+interface ArtistProps {
+  id: string;
+  name: string;
+  images: {
+    url: string;
+  }[];
+}
 
 const Artists: NextPage = () => {
+  const token = useSelector(selectToken);
+  const [artists, setArtists] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchArtistsData();
+  }, []);
+
   return (
     <>
       <Head>
@@ -21,16 +41,29 @@ const Artists: NextPage = () => {
             <div className="flex items-center justify-between mb-5">
               <h2 className="text-white font-bold text-2xl">Artists</h2>
             </div>
-            <div className="grid grid-rows-1 grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-6">
-              {data.artists.map(artist => (
-                <ArtistCard key={artist.id} id={artist.id} name={artist.name} />
-              ))}
-            </div>
+            {!loading && (
+              <div className="grid grid-rows-1 grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-6">
+                {artists.map((artist: ArtistProps) => (
+                  <ArtistCard
+                    key={artist.id}
+                    id={artist.id}
+                    name={artist.name}
+                    imageUrl={artist.images[0].url}
+                  />
+                ))}
+              </div>
+            )}
           </section>
         </div>
       </div>
     </>
   );
+
+  async function fetchArtistsData() {
+    const { artists } = await http.getUserArtists(token);
+    setArtists(artists.items);
+    setLoading(false);
+  }
 };
 
 export default Artists;

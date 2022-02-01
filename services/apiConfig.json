@@ -1,0 +1,6 @@
+{
+  "baseUrl": "https://api.spotify.com/v1/",
+  "user": "me",
+  "userPlaylists": "me/playlists",
+  "userShows": "me/shows"
+}

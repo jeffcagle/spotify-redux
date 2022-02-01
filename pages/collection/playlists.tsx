@@ -1,11 +1,33 @@
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import Head from 'next/head';
-import data from '../../data/playlists.json';
-import playlistData from '../../data/playlist.json';
 import PlaylistCard from '../../components/cards/PlaylistCard';
+import { useSelector } from 'react-redux';
+import {
+  selectToken,
+  selectUserPlaylists,
+  selectUserTracks,
+} from '../../store/user';
+
+interface PlaylistProps {
+  id: string;
+  name: string;
+  images: { url: string }[];
+  owner: { display_name: string };
+}
+
+interface TrackProps {
+  items: {
+    track: { id: string; name: string; artists: { name: string }[] };
+  }[];
+  total: number;
+}
 
 const Playlists: NextPage = () => {
+  const token = useSelector(selectToken);
+  const userPlaylists: PlaylistProps[] = useSelector(selectUserPlaylists).items;
+  const userTracks: TrackProps = useSelector(selectUserTracks);
+
   return (
     <>
       <Head>
@@ -29,14 +51,14 @@ const Playlists: NextPage = () => {
                   <div className="flex flex-col gap-5 h-full">
                     <div className="liked__list mb-3 flex items-end flex-1">
                       <div className="line-clamp-3">
-                        {playlistData.tracks.map(track => (
+                        {userTracks.items.map(track => (
                           <span
-                            key={track.id}
+                            key={track.track.id}
                             className="first:before:content-[''] first:before:mx-0 before:content-['•'] before:mx-1"
                           >
-                            <span>{track.artists[0].name}</span>
+                            <span>{track.track.artists[0].name}</span>
                             <span className="opacity-70 before:ml-1">
-                              {track.name}
+                              {track.track.name}
                             </span>
                           </span>
                         ))}
@@ -45,19 +67,20 @@ const Playlists: NextPage = () => {
                     <div className="liked__count min-h-[62px] flex flex-col gap-1">
                       <span className="font-medium text-3xl">Liked Songs</span>
                       <span className="text-ellipsis">
-                        {playlistData.tracks.length} liked songs
+                        {userTracks.total} liked songs
                       </span>
                     </div>
                   </div>
                 </a>
               </Link>
 
-              {data.playlists.map(playlist => (
+              {userPlaylists.map((playlist: PlaylistProps) => (
                 <PlaylistCard
                   key={playlist.id}
                   id={playlist.id}
                   name={playlist.name}
-                  artists={playlist.artists}
+                  creator={playlist.owner.display_name}
+                  imageUrl={playlist.images[0].url}
                 />
               ))}
             </div>
