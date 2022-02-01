@@ -8,9 +8,8 @@ import Controls from './Controls';
 import Volume from './Volume';
 
 export default function Player() {
-  const token = useSelector(selectToken);
-
-  const dispatch = useDispatch();
+  const token = useSelector(selectToken),
+    dispatch = useDispatch();
 
   useEffect(() => {
     async function getPlaybackState() {
@@ -22,7 +21,7 @@ export default function Player() {
       }
     }
     getPlaybackState();
-  }, [token]);
+  }, [token, dispatch]);
 
   return (
     <div className="bg-gray-700 border-t border-t-gray-600 h-24 p-4 flex justify-between items-center text-gray-100 fixed z-20 bottom-0 min-w-full">
