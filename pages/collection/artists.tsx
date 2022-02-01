@@ -1,9 +1,7 @@
 import type { NextPage } from 'next';
-import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import ArtistCard from '../../components/cards/ArtistCard';
-import * as http from '../../services/fetchService';
-import { selectToken } from '../../store/user';
+import { selectUserArtists } from '../../store/user';
 import { useSelector } from 'react-redux';
 
 interface ArtistProps {
@@ -15,18 +13,7 @@ interface ArtistProps {
 }
 
 const Artists: NextPage = () => {
-  const token = useSelector(selectToken),
-    [artists, setArtists] = useState([]),
-    [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchArtistsData() {
-      const { artists } = await http.getUserArtists(token);
-      setArtists(artists.items);
-      setLoading(false);
-    }
-    fetchArtistsData();
-  }, [token]);
+  const artists = useSelector(selectUserArtists).items;
 
   return (
     <>
@@ -45,18 +32,16 @@ const Artists: NextPage = () => {
             <div className="flex items-center justify-between mb-5">
               <h2 className="text-white font-bold text-2xl">Artists</h2>
             </div>
-            {!loading && (
-              <div className="grid grid-rows-1 grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-6">
-                {artists.map((artist: ArtistProps) => (
-                  <ArtistCard
-                    key={artist.id}
-                    id={artist.id}
-                    name={artist.name}
-                    imageUrl={artist.images[0].url}
-                  />
-                ))}
-              </div>
-            )}
+            <div className="grid grid-rows-1 grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-6">
+              {artists.map((artist: ArtistProps) => (
+                <ArtistCard
+                  key={artist.id}
+                  id={artist.id}
+                  name={artist.name}
+                  imageUrl={artist.images[0].url}
+                />
+              ))}
+            </div>
           </section>
         </div>
       </div>
