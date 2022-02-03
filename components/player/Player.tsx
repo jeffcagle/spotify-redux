@@ -16,8 +16,8 @@ export default function Player() {
       try {
         const _playbackState = await http.getPlaybackState(token);
         dispatch(setPlaybackState(_playbackState));
-      } catch (error: any) {
-        console.log(error.message);
+      } catch (error) {
+        console.error(error);
       }
     }
     getPlaybackState();

@@ -9,7 +9,6 @@ interface Props {
 
 function Table() {
   const tracks = useSelector(selectUserTracks).items;
-  console.log(useSelector(selectUserTracks));
 
   return (
     <div className="tracks flex flex-col">

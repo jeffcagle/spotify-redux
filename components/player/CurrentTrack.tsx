@@ -37,8 +37,8 @@ function CurrentTrack() {
       } else {
         dispatch(setCurrentlyPlaying(_currentTrack));
       }
-    } catch (error: any) {
-      console.log(error.message);
+    } catch (error) {
+      console.error(error);
     }
   }
 

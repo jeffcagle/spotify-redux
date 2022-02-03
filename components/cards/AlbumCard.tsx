@@ -83,16 +83,16 @@ function AlbumCard({ id, name, artists, imageUrl }: Props) {
       try {
         await http.pauseTrack(token);
         dispatch(setIsPlaying(false));
-      } catch (error: any) {
-        console.log(error.message);
+      } catch (error) {
+        console.error(error);
       }
     } else {
       try {
         await http.playAlbum(token, id);
         dispatch(setContextId(id));
         dispatch(setIsPlaying(true));
-      } catch (error: any) {
-        console.log(error.message);
+      } catch (error) {
+        console.error(error);
       }
     }
   }

@@ -58,16 +58,16 @@ function Controls(props: Props) {
       try {
         await http.pauseTrack(token);
         dispatch(setIsPlaying(false));
-      } catch (error: any) {
-        console.log(error.message);
+      } catch (error) {
+        console.error(error);
       }
     } else {
       try {
         await http.playEpisode(contextId, id, token);
         dispatch(setContextId(contextId));
         dispatch(setIsPlaying(true));
-      } catch (error: any) {
-        console.log(error.message);
+      } catch (error) {
+        console.error(error);
       }
     }
   }
