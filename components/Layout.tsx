@@ -1,47 +1,97 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { useSelector } from 'react-redux';
-import {
-  selectUserAlbums,
-  selectUserArtists,
-  selectUsername,
-  selectUserPlaylists,
-  selectUserShows,
-} from '../store/user';
+import { useSelector, useDispatch } from 'react-redux';
+import * as user from '../store/user';
 import Player from './player/Player';
 import Sidebar from './sidebar/Sidebar';
 import * as Icon from './Icons';
+import * as http from '../services/fetchService';
+import Login from './Login';
+import { getTokenFromUrl } from '../services/login';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 export default function Layout({ children }: LayoutProps) {
+  const token = useSelector(user.selectToken),
+    dispatch = useDispatch(),
+    [state, setState] = useState({
+      loading: false,
+    });
+
+  useEffect(() => {
+    async function getUser() {
+      try {
+        const hash = getTokenFromUrl();
+        const _token = hash.access_token;
+        window.location.hash = '';
+
+        if (_token) {
+          setState({ loading: true });
+
+          const _user = await http.getCurrentUser(_token),
+            _userPlaylists = await http.getUserPlaylists(_token),
+            _userTracks = await http.getUserTracks(_token),
+            _userEpisodes = await http.getUserEpisodes(_token),
+            _userShows = await http.getUserShows(_token),
+            _userArtists = await http.getUserArtists(_token),
+            _userAlbums = await http.getUserAlbums(_token);
+          dispatch(user.setToken(_token));
+          dispatch(user.setUser(_user));
+          dispatch(user.setUserPlaylists(_userPlaylists));
+          dispatch(user.setUserTracks(_userTracks));
+          dispatch(user.setUserShows(_userShows));
+          dispatch(user.setUserEpisodes(_userEpisodes));
+          dispatch(user.setUserArtists(_userArtists));
+          dispatch(user.setUserAlbums(_userAlbums));
+
+          setState({ loading: false });
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getUser();
+  }, [dispatch]);
+
+  if (state.loading) {
+    return (
+      <div className="bg-gray-800 h-screen p-8 flex items-center justify-center">
+        <span className="text-gray-100">...loading</span>
+      </div>
+    );
+  }
+
   return (
     <>
-      <main className="flex flex-col h-screen text-sm overflow-hidden">
-        <div className="flex flex-1">
-          <Sidebar />
-          <div className="bg-gray-800 flex-1 ml-60">
-            <HeaderBar />
-            <div
-              style={{ height: 'calc(100vh - 161px)' }}
-              className="overflow-y-auto"
-            >
-              {children}
+      {token ? (
+        <main className="flex flex-col h-screen text-sm overflow-hidden">
+          <div className="flex flex-1">
+            <Sidebar />
+            <div className="bg-gray-800 flex-1 ml-60">
+              <HeaderBar />
+              <div
+                style={{ height: 'calc(100vh - 161px)' }}
+                className="overflow-y-auto"
+              >
+                {children}
+              </div>
             </div>
           </div>
-        </div>
-        <Player />
-      </main>
+          <Player />
+        </main>
+      ) : (
+        <Login />
+      )}
     </>
   );
 }
 
 function HeaderBar() {
   const router = useRouter(),
-    username = useSelector(selectUsername);
+    username = useSelector(user.selectUsername);
 
   return (
     <header className="flex justify-between items-center bg-gray-700 h-16 w-full sticky top-0 px-8 z-30">
@@ -79,10 +129,10 @@ function HeaderBar() {
 
 function LibraryMenu() {
   const { pathname } = useRouter(),
-    playlistCount = useSelector(selectUserPlaylists).total,
-    showCount = useSelector(selectUserShows).total,
-    artistCount = useSelector(selectUserArtists).total,
-    albumCount = useSelector(selectUserAlbums).total;
+    playlistCount = useSelector(user.selectUserPlaylists).total,
+    showCount = useSelector(user.selectUserShows).total,
+    artistCount = useSelector(user.selectUserArtists).total,
+    albumCount = useSelector(user.selectUserAlbums).total;
 
   return (
     <div className="header__library ml-7">
