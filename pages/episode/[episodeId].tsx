@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { selectToken } from '../../store/user';
 import { useSelector } from 'react-redux';
@@ -10,32 +11,31 @@ import Controls from '../../components/episodes/Controls';
 import Body from '../../components/episodes/Body';
 import Description from '../../components/episodes/Description';
 
-const initialEpisodeState = {
-  id: '',
-  name: '',
-  description: '',
-  images: [],
-  show: { id: '', name: '' },
-  release_date: '',
-  duration_ms: 0,
-};
-
 const Episode: NextPage = () => {
   const token = useSelector(selectToken),
-    episodeId = useSelector(selectEpisodeId),
-    [episode, setEpisode] = useState(initialEpisodeState),
-    [loading, setLoading] = useState(true);
+    router = useRouter(),
+    episodeId = router.query.episodeId,
+    [state, setState] = useState({
+      episode: {
+        id: '',
+        name: '',
+        description: '',
+        images: [],
+        show: { id: '', name: '' },
+        release_date: '',
+        duration_ms: 0,
+      },
+      loading: true,
+    });
 
   useEffect(() => {
     async function fetchEpisodeData() {
       try {
-        setLoading(true);
+        setState(state => ({ ...state, loading: true }));
         const _episode = await http.getEpisode(episodeId, token);
-        setEpisode(_episode);
-      } catch (error: any) {
-        console.log(`----! ${error.message.toUpperCase()} !----`);
-      } finally {
-        setLoading(false);
+        setState({ episode: _episode, loading: false });
+      } catch (error) {
+        console.error(error);
       }
     }
     fetchEpisodeData();
@@ -49,12 +49,12 @@ const Episode: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {!loading ? (
+      {!state.loading ? (
         <>
-          <Banner data={episode} />
-          <Body data={episode}>
-            <Controls contextId={episode.show.id} id={episode.id} />
-            <Description data={episode} />
+          <Banner data={state.episode} />
+          <Body data={state.episode}>
+            <Controls contextId={state.episode.show.id} id={state.episode.id} />
+            <Description data={state.episode} />
           </Body>
         </>
       ) : (
