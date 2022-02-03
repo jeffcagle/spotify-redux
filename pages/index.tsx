@@ -60,11 +60,13 @@ const Home: NextPage = () => {
               />
             )}
 
-            <ShowsRow
-              name="Your Shows"
-              path="sectionjIdnO39OnsJU"
-              items={userShows}
-            />
+            {userShows && (
+              <ShowsRow
+                name="Your Shows"
+                path="sectionjIdnO39OnsJU"
+                items={userShows}
+              />
+            )}
 
             <PlaylistsRow
               name="Rock Playlists"
