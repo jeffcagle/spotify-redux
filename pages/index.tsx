@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { selectToken } from '../store/user';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as http from '../services/fetchService';
 import TracksRow from '../components/genre-rows/TracksRow';
 import ShowsRow from '../components/genre-rows/ShowsRow';
@@ -10,36 +11,46 @@ import PlaylistsRow from '../components/genre-rows/PlaylistsRow';
 
 const Home: NextPage = () => {
   const token = useSelector(selectToken),
-    [loading, setIsLoading] = useState(true),
-    [recentTracks, setRecentTracks] = useState([]),
-    [userShows, setUserShows] = useState([]),
-    [rockPlaylists, setRockPlaylists] = useState([]),
-    [countryPlaylists, setCountryPlaylists] = useState([]);
+    dispatch = useDispatch(),
+    router = useRouter(),
+    [state, setState] = useState({
+      loading: true,
+      recentTracks: [],
+      userShows: [],
+      rockPlaylists: [],
+      countryPlaylists: [],
+    });
 
   useEffect(() => {
     async function fetchRowData() {
-      let _recentTracks = await http.getUserRecentlyPlayedTracks(token);
-      const _userShows = await http.getUserShows(token),
-        _rockPlaylists = await http.getCategoryPlaylists(
-          'rock',
-          'playlists',
-          token
-        ),
-        _countryPlaylists = await http.getCategoryPlaylists(
-          'country',
-          'playlists',
-          token
-        );
+      try {
+        let _recentTracks = await http.getUserRecentlyPlayedTracks(token);
+        _recentTracks = removeDuplicates(_recentTracks.items);
+        const _rockPlaylists = await http.getCategoryPlaylists(
+            'rock',
+            'playlists',
+            token
+          ),
+          _countryPlaylists = await http.getCategoryPlaylists(
+            'country',
+            'playlists',
+            token
+          ),
+          _userShows = await http.getUserShows(token);
 
-      _recentTracks = removeDuplicates(_recentTracks.items);
-      setRecentTracks(_recentTracks);
-      setUserShows(_userShows.items);
-      setRockPlaylists(_rockPlaylists.playlists.items);
-      setCountryPlaylists(_countryPlaylists.playlists.items);
-      setIsLoading(false);
+        setState({
+          recentTracks: _recentTracks,
+          userShows: _userShows.items,
+          rockPlaylists: _rockPlaylists.playlists.items,
+          countryPlaylists: _countryPlaylists.playlists.items,
+          loading: false,
+        });
+      } catch (error) {
+        console.error(error);
+      }
     }
     fetchRowData();
-  }, [token]);
+  }, [token, dispatch, router.asPath]);
 
   return (
     <>
@@ -50,34 +61,34 @@ const Home: NextPage = () => {
       </Head>
 
       <div className="p-8 grid gap-6">
-        {!loading && (
+        {!state.loading && (
           <>
-            {recentTracks && (
+            {state.recentTracks && (
               <TracksRow
                 name="Recently Played"
                 path="recently-played"
-                items={recentTracks}
+                items={state.recentTracks}
               />
             )}
 
-            {userShows && (
+            {state.userShows && (
               <ShowsRow
                 name="Your Shows"
                 path="sectionjIdnO39OnsJU"
-                items={userShows}
+                items={state.userShows}
               />
             )}
 
             <PlaylistsRow
               name="Rock Playlists"
               path="section8Uend8HWS02d"
-              items={rockPlaylists}
+              items={state.rockPlaylists}
             />
 
             <PlaylistsRow
               name="Country Playlists"
               path="sectionU8dsTSD0fbs"
-              items={countryPlaylists}
+              items={state.countryPlaylists}
             />
           </>
         )}

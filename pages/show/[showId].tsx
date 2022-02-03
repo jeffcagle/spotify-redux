@@ -1,40 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import * as http from '../../services/fetchService';
 import { useSelector } from 'react-redux';
 import { selectToken } from '../../store/user';
-import { selectShowId } from '../../store/page';
 import Banner from '../../components/shows/Banner';
 import Body from '../../components/shows/Body';
 import Controls from '../../components/shows/Controls';
 import Table from '../../components/shows/Table';
 
-const initialShowState = {
-  id: '',
-  name: '',
-  description: '',
-  images: [],
-  publisher: '',
-  episodes: { items: [] },
-};
-
 const Show: NextPage = () => {
   const token = useSelector(selectToken),
-    showId = useSelector(selectShowId),
-    [show, setShow] = useState(initialShowState),
-    [loading, setLoading] = useState(true);
+    router = useRouter(),
+    showId = router.query.showId,
+    [state, setState] = useState({
+      show: {
+        id: '',
+        name: '',
+        description: '',
+        images: [{ url: '' }],
+        publisher: '',
+        episodes: { items: [] },
+      },
+      loading: true,
+    });
 
   useEffect(() => {
     async function fetchShowData() {
       try {
-        setLoading(true);
+        setState(state => ({ ...state, loading: true }));
         const _show = await http.getShow(showId, token);
-        setShow(_show);
-      } catch (error: any) {
-        console.log(`----! ${error.message.toUpperCase()} !----`);
-      } finally {
-        setLoading(false);
+        setState({ show: _show, loading: false });
+      } catch (error) {
+        console.error(error);
       }
     }
     fetchShowData();
@@ -48,12 +47,12 @@ const Show: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {!loading ? (
+      {!state.loading ? (
         <>
-          <Banner data={show} />
+          <Banner data={state.show} />
           <Body>
             <Controls />
-            <Table data={show} />
+            <Table data={state.show} />
           </Body>
         </>
       ) : (

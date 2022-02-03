@@ -1,41 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useSelector } from 'react-redux';
 import { selectToken } from '../../store/user';
-import { selectPlaylistId } from '../../store/page';
 import * as http from '../../services/fetchService';
 import Banner from '../../components/playlists/Banner';
 import Body from '../../components/playlists/Body';
 import Controls from '../../components/playlists/Controls';
 import Table from '../../components/playlists/Table';
 
-const initialPlaylistState = {
-  id: '',
-  name: '',
-  images: [{ url: '' }],
-  owner: { display_name: '' },
-  followers: { total: 0 },
-  tracks: { items: [] },
-  duration: 0,
-};
-
 const Playlist: NextPage = () => {
   const token = useSelector(selectToken),
-    playlistId = useSelector(selectPlaylistId),
-    [playlist, setPlaylist] = useState(initialPlaylistState),
-    [loading, setLoading] = useState(true);
+    router = useRouter(),
+    playlistId = router.query.playlistId,
+    [state, setState] = useState({
+      playlist: {
+        id: '',
+        name: '',
+        images: [{ url: '' }],
+        owner: { display_name: '' },
+        followers: { total: 0 },
+        tracks: { items: [] },
+        duration: 0,
+      },
+      loading: true,
+    });
 
   useEffect(() => {
     async function fetchPlaylistData() {
       try {
-        setLoading(true);
+        setState(state => ({ ...state, loading: true }));
         const _playlist = await http.getPlaylist(playlistId, token);
-        setPlaylist(_playlist);
-      } catch (error: any) {
-        console.log(`----! ${error.message.toUpperCase()} !----`);
-      } finally {
-        setLoading(false);
+        setState({ playlist: _playlist, loading: false });
+      } catch (error) {
+        console.error(error);
       }
     }
     fetchPlaylistData();
@@ -52,12 +51,12 @@ const Playlist: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {!loading ? (
+      {!state.loading ? (
         <>
-          <Banner data={playlist} />
+          <Banner data={state.playlist} />
           <Body>
-            <Controls data={playlist.id} />
-            <Table data={playlist} />
+            <Controls data={state.playlist.id} />
+            <Table data={state.playlist} />
           </Body>
         </>
       ) : (

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useSelector } from 'react-redux';
 import { selectToken } from '../../../store/user';
@@ -11,36 +12,38 @@ import Body from '../../../components/artists/Body';
 import Popular from '../../../components/artists/Popular';
 import Albums from '../../../components/artists/Albums';
 
-const initialArtistState = {
-  name: '',
-  followers: { total: 0 },
-  images: [],
-};
-
 const Artist: NextPage = () => {
   const token = useSelector(selectToken),
-    artistId = useSelector(selectArtistId),
-    [artist, setArtist] = useState(initialArtistState),
-    [topTracks, setTopTracks] = useState([]),
-    [albums, setAlbums] = useState([]),
-    [loading, setLoading] = useState(true);
+    router = useRouter(),
+    artistId = router.query.artistId,
+    [state, setState] = useState({
+      artist: {
+        name: '',
+        followers: { total: 0 },
+        images: [],
+      },
+      topTracks: [],
+      albums: [],
+      loading: true,
+    });
 
   useEffect(() => {
     async function fetchArtistData() {
       try {
-        setLoading(true);
+        setState(state => ({ ...state, loading: true }));
         const _artist = await http.getArtist(artistId, token),
           _topTracks = await http.getArtistTopTracks(artistId, token);
         let _albums = await http.getArtistAlbums(artistId, token);
         _albums = removeDuplicates(_albums.items);
-        setArtist(_artist);
-        setTopTracks(_topTracks.tracks);
 
-        setAlbums(_albums);
-      } catch (error: any) {
-        console.log(`----! ${error.message.toUpperCase()} !----`);
-      } finally {
-        setLoading(false);
+        setState({
+          artist: _artist,
+          topTracks: _topTracks.tracks,
+          albums: _albums,
+          loading: false,
+        });
+      } catch (error) {
+        console.error(error);
       }
     }
     fetchArtistData();
@@ -54,13 +57,13 @@ const Artist: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {!loading ? (
+      {!state.loading ? (
         <>
-          <Banner data={artist} />
+          <Banner data={state.artist} />
           <Body>
             <Controls />
-            <Popular data={topTracks} />
-            <Albums data={albums} />
+            <Popular data={state.topTracks} />
+            <Albums data={state.albums} />
           </Body>
         </>
       ) : (
