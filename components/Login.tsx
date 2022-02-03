@@ -1,8 +1,7 @@
-import type { NextPage } from 'next';
 import { loginUrl } from '../services/login';
 import * as Icon from './Icons';
 
-const Login: NextPage = () => {
+function Login() {
   return (
     <div className="bg-gray-800 h-screen p-8 flex items-center justify-center">
       <div className="bg-gray-700 max-w-[600px] p-16 rounded-md">
@@ -59,6 +58,6 @@ const Login: NextPage = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Login;
