@@ -2,14 +2,14 @@ import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
 import store from '../store/store';
 import '../styles/globals.css';
-import Gateway from '../components/Gateway';
+import Layout from '../components/Layout';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
-      <Gateway>
+      <Layout>
         <Component {...pageProps} />
-      </Gateway>
+      </Layout>
     </Provider>
   );
 }
